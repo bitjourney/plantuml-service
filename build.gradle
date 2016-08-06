@@ -24,9 +24,6 @@ dependencies {
 repositories {
     jcenter()
 }
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
-}
 
 jar {
     manifest {
