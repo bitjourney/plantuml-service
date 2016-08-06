@@ -23,11 +23,14 @@ class Main {
          */
         @JvmStatic
         fun main(args: Array<String>) {
-            Main().start()
+            val port = if (args.size > 0) args[0].toInt() else 4567
+            Main().start(port)
         }
     }
 
-    fun start() {
+    fun start(port: Int) {
+        Spark.port(port)
+
         Spark.after { request, response ->
             response.header("Content-Encoding", "gzip")
         }
