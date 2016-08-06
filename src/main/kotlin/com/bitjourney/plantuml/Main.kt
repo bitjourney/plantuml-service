@@ -1,15 +1,63 @@
 package com.bitjourney.plantuml
 
-import spark.Request
+import net.sourceforge.plantuml.FileFormat
+import net.sourceforge.plantuml.FileFormatOption
+import net.sourceforge.plantuml.SourceStringReader
+import net.sourceforge.plantuml.code.TranscoderUtil
 import spark.Response
-import spark.Spark.*
+import spark.Spark
+import java.net.URLDecoder
 
-fun main(args: Array<String>) {
-    get("/", {
-        request: Request, response: Response ->
+class Main {
+    companion object {
+        init {
+            //  -Djava.awt.headless=true -Dfile.encoding=UTF-8
+            System.setProperty("file.encoding", "UTF-8")
+            System.setProperty("java.awt.headless", "true")
+        }
 
+        /*
+         * Starts the HTTP server
+         *
+         * See also: http://plantuml.com/server.html
+         */
+        @JvmStatic
+        fun main(args: Array<String>) {
+            Main().start()
+        }
+    }
+
+    fun start() {
+        Spark.after { request, response ->
+            response.header("Content-Encoding", "gzip")
+        }
+
+        Spark.exception(Exception::class.java, { exception, request, response ->
+            response.status(400)
+            render("@startuml\n${exception.message}\n@enduml\n", response)
+        })
+
+        Spark.get("/svg/:source", { request, response ->
+            val source = decodeSource(request.params(":source"))
+            render(source, response)
+        })
+    }
+
+    fun render(source: String, response: Response) {
         response.type("image/svg+xml")
 
-        "<root />"
-    })
+        val renderer = SourceStringReader(source)
+        renderer.generateImage(response.raw().outputStream, FileFormatOption(FileFormat.SVG, true))
+    }
+
+    fun decodeSource(urlEncodedSource: String): String {
+        val source = URLDecoder.decode(urlEncodedSource, "UTF-8")
+
+        if (source.startsWith("@startuml")) {
+            return source;
+        } else {
+            val transcoder = TranscoderUtil.getDefaultTranscoder()
+            return transcoder.decode(source);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 group 'com.bitjourney.plantuml'
 version '1.0-SNAPSHOT'
 
-final mainClassName = "${group}.MainKt"
+final mainClassName = "${group}.Main"
 
 buildscript {
     ext.kotlin_version = '1.0.3'
@@ -17,7 +17,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     compile "net.sourceforge.plantuml:plantuml:8046"
-    compile "com.sparkjava:spark-core:2.3"
+    compile "com.sparkjava:spark-core:2.5"
+    compile "org.slf4j:slf4j-simple:1.7.21"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {
