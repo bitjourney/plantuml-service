@@ -1,5 +1,5 @@
 
-# PlantUML HTTP service
+# PlantUML HTTP service [![CircleCI](https://circleci.com/gh/gfx/plantuml-service.svg?style=svg)](https://circleci.com/gh/gfx/plantuml-service)
 
 This is an HTTP interface to [PlantUML](http://plantuml.com/).
 
