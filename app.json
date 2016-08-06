@@ -1,0 +1,6 @@
+{
+  "name": "PlantUML service",
+  "description": "An HTTP interface to PlantUML",
+  "image": "heroku/java",
+  "addons": []
+}
