@@ -1,5 +1,6 @@
 package com.bitjourney.plantuml
 
+import com.google.gson.JsonObject
 import net.sourceforge.plantuml.FileFormat
 import net.sourceforge.plantuml.FileFormatOption
 import net.sourceforge.plantuml.SourceStringReader
@@ -43,6 +44,13 @@ class Main {
         Spark.get("/svg/:source", { request, response ->
             val source = decodeSource(request.params(":source"))
             render(source, response)
+        })
+
+        Spark.get("/version", { request, response ->
+            response.type("application/json")
+            val json = JsonObject()
+            json.addProperty("PlantUML", javaClass.getPackage().implementationVersion)
+            response.body(json.toString())
         })
     }
 

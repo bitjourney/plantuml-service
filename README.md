@@ -22,6 +22,30 @@ Example:
 
 This is compatible with `plantuml-server` (e.g. `http://plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000`).
 
+### `GET /version`
+
+Shows PlantUML version in JSON:
+
+```json
+{"PlantUML":"8046"}
+```
+
+This is intended to check the service helth.
+
+## Run the Http Service
+
+Local:
+
+```
+./gradlew stage && heroku local:start
+```
+
+Production:
+
+```
+java -jar ./build/libs/plantuml-1.0-SNAPSHOT.jar $PORT
+```
+
 ## See Also
 
 * https://github.com/plantuml/plantuml-server
