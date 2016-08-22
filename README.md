@@ -21,11 +21,11 @@ Example:
 
 ![example](https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
 
-https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+* https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 ### `GET /version`
 
-Shows PlantUML version in JSON:
+Shows the PlantUML version in JSON:
 
 ```json
 {"PlantUML":"8046"}
@@ -33,7 +33,9 @@ Shows PlantUML version in JSON:
 
 This is also intended to check the service helth.
 
-Example: https://plantuml-service.herokuapp.com/version
+Example:
+
+* https://plantuml-service.herokuapp.com/version
 
 ## Development
 
@@ -46,7 +48,11 @@ Run on local:
 Production:
 
 ```sh
-java -jar ./build/libs/plantuml-1.0-SNAPSHOT.jar $PORT
+# build
+./gradlew stage
+
+# run
+bin/plantuml-service $PORT
 ```
 
 ## For macOS
