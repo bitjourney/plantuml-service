@@ -11,6 +11,8 @@ Returns an SVG image of `:source` processed by PlantUML.
 
 `:source` is source code encoded in [PlantUML Text Encoding](http://plantuml.com/pte.html).
 
+This is compatible with `plantuml-server` (e.g. `http://plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000`).
+
 Example:
 
 ```markdown
@@ -19,8 +21,7 @@ Example:
 
 ![example](https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
 
-
-This is compatible with `plantuml-server` (e.g. `http://plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000`).
+https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 ### `GET /version`
 
@@ -30,7 +31,9 @@ Shows PlantUML version in JSON:
 {"PlantUML":"8046"}
 ```
 
-This is intended to check the service helth.
+This is also intended to check the service helth.
+
+Example: https://plantuml-service.herokuapp.com/version
 
 ## Run the Http Service
 
