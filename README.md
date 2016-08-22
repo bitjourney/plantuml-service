@@ -35,18 +35,27 @@ This is also intended to check the service helth.
 
 Example: https://plantuml-service.herokuapp.com/version
 
-## Run the Http Service
+## Development
 
-Local:
+Run on local:
 
-```
+```sh
 ./gradlew stage && heroku local:start
 ```
 
 Production:
 
-```
+```sh
 java -jar ./build/libs/plantuml-1.0-SNAPSHOT.jar $PORT
+```
+
+## For macOS
+
+There is a homebrew formula in [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self):
+
+```sh
+brew install bitjourney/self/plantuml-service
+brew services start bitjourney/self/plantuml-service
 ```
 
 ## See Also
@@ -59,7 +68,7 @@ FUJI Goro ([gfx](https://github.com/gfx)).
 
 ## License
 
-Copyright (c) 2016 FUJI Goro (gfx).
+Copyright (c) 2016 Bit Journey, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
