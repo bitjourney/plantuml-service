@@ -4,6 +4,8 @@ version '1.0-SNAPSHOT'
 final MainClassName = "${group}.Main"
 final PlantUmlVersion = 8046
 
+final ArchiveName = "plantuml-service.jar"
+
 buildscript {
     ext.kotlin_version = '1.0.3'
     repositories {
@@ -28,6 +30,7 @@ repositories {
 }
 
 jar {
+    archiveName ArchiveName
     manifest {
         attributes(
                 "Main-Class": MainClassName,
@@ -41,7 +44,7 @@ jar {
     }
 }
 
-// for Heroku
-task stage {
-    dependsOn jar
+task stage(type: Copy, dependsOn: jar) {
+    from file("build/libs/${ArchiveName}")
+    into file("bin/")
 }

@@ -1,1 +1,1 @@
-web: java -jar ./build/libs/plantuml-1.0-SNAPSHOT.jar $PORT
+web: bin/plantuml-service $PORT
