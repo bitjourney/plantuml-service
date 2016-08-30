@@ -52,7 +52,7 @@ class Main {
 
     fun start(port: Int, graphvizDot: Path?) {
         graphvizDot?.let { path ->
-            GraphvizUtils.setDotExecutable(path.toString());
+            GraphvizUtils.setDotExecutable(path.toString())
         }
 
         checkTools()
@@ -92,7 +92,7 @@ class Main {
         val source = URLDecoder.decode(urlEncodedSource, "UTF-8")
 
         if (source.startsWith("@startuml")) {
-            return source;
+            return source
         } else {
             val transcoder = TranscoderUtil.getDefaultTranscoder()
             return transcoder.decode(source)
@@ -100,7 +100,7 @@ class Main {
     }
 
     fun checkTools() {
-        val version = GraphvizUtils.getDotVersion();
+        val version = GraphvizUtils.getDotVersion()
 
         if (version == -1) {
             throw AssertionError("No GraphViz dot found in the PATH.")
