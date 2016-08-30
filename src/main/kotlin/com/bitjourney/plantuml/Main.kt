@@ -7,7 +7,6 @@ import net.sourceforge.plantuml.SourceStringReader
 import net.sourceforge.plantuml.code.AsciiEncoder
 import net.sourceforge.plantuml.code.CompressionZlib
 import net.sourceforge.plantuml.code.TranscoderImpl
-import net.sourceforge.plantuml.code.TranscoderUtil
 import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
 import org.slf4j.LoggerFactory
 import spark.Response
@@ -55,14 +54,20 @@ class Main {
 
     val transcoder = TranscoderImpl(AsciiEncoder(), CompressionZlib())
 
-    fun start(port: Int, graphvizDot: Path?) {
+    fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
             GraphvizUtils.setDotExecutable(path.toString())
         }
+    }
 
-        checkTools()
+    fun start(port: Int, graphvizDot: Path?) {
+        checkTools(graphvizDot)
 
         Spark.port(port)
+
+        Spark.before { request, response ->
+            installGraphvizDotExecutable(graphvizDot)
+        }
 
         Spark.after { request, response ->
             response.header("Content-Encoding", "gzip")
@@ -103,7 +108,9 @@ class Main {
         }
     }
 
-    fun checkTools() {
+    fun checkTools(graphvizDot: Path?) {
+        installGraphvizDotExecutable(graphvizDot)
+
         val version = GraphvizUtils.getDotVersion()
 
         if (version == -1) {
