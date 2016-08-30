@@ -4,6 +4,9 @@ import com.google.gson.JsonObject
 import net.sourceforge.plantuml.FileFormat
 import net.sourceforge.plantuml.FileFormatOption
 import net.sourceforge.plantuml.SourceStringReader
+import net.sourceforge.plantuml.code.AsciiEncoder
+import net.sourceforge.plantuml.code.CompressionZlib
+import net.sourceforge.plantuml.code.TranscoderImpl
 import net.sourceforge.plantuml.code.TranscoderUtil
 import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
 import org.slf4j.LoggerFactory
@@ -50,6 +53,8 @@ class Main {
 
     val logger = LoggerFactory.getLogger(Main::class.java)
 
+    val transcoder = TranscoderImpl(AsciiEncoder(), CompressionZlib())
+
     fun start(port: Int, graphvizDot: Path?) {
         graphvizDot?.let { path ->
             GraphvizUtils.setDotExecutable(path.toString())
@@ -94,7 +99,6 @@ class Main {
         if (source.startsWith("@startuml")) {
             return source
         } else {
-            val transcoder = TranscoderUtil.getDefaultTranscoder()
             return transcoder.decode(source)
         }
     }
