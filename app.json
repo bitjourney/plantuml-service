@@ -1,6 +1,14 @@
 {
-  "name": "PlantUML service",
+  "name": "PlantUML HTTP service",
   "description": "An HTTP interface to PlantUML",
   "image": "heroku/java",
-  "addons": []
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    },
+    {
+      "url": "https://github.com/weibeld/heroku-buildpack-graphviz.git"
+    }
+  ]
 }
