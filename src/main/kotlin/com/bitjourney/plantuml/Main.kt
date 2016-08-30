@@ -17,6 +17,8 @@ import java.nio.file.Paths
 
 class Main {
     companion object {
+        val DEFAULT_PORT = 1608
+
         init {
             //  -Djava.awt.headless=true -Dfile.encoding=UTF-8
             System.setProperty("file.encoding", "UTF-8")
@@ -30,7 +32,7 @@ class Main {
          */
         @JvmStatic
         fun main(args: Array<String>) {
-            val port = if (args.size > 0) args[0].toInt() else 4567
+            val port = if (args.size > 0) args[0].toInt() else DEFAULT_PORT
             val graphvizDot = if (args.size > 1) Paths.get(args[1]) else findCommand("dot")
             Main().start(port, graphvizDot)
         }
