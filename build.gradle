@@ -2,12 +2,12 @@ group 'com.bitjourney.plantuml'
 version '1.0.2'
 
 final MainClassName = "${group}.Main"
-final PlantUmlVersion = 8047
+final PlantUmlVersion = 8048
 
 final ArchiveName = "plantuml-service.jar"
 
 buildscript {
-    ext.kotlin_version = '1.0.3'
+    ext.kotlin_version = '1.0.4'
     repositories {
         jcenter()
     }
