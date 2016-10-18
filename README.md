@@ -64,6 +64,29 @@ brew install bitjourney/self/plantuml-service
 brew services start bitjourney/self/plantuml-service
 ```
 
+## Deployment
+
+Here is an example systemd.service(5) config file:
+
+
+```ini
+[Unit]
+Descrption=PlantUML service
+Documentation=https://github.com/bitjourney/plantuml-service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=$APP_PATH/app/bin/plantuml-service
+WorkingDirectory=$APP_PATH/app
+
+User=$APP_USER
+Group=$APP_USER
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ## See Also
 
 * https://github.com/plantuml/plantuml-server
