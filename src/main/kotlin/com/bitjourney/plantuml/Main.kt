@@ -1,5 +1,7 @@
 package com.bitjourney.plantuml
 
+import com.github.benmanes.caffeine.cache.Caffeine
+import com.github.benmanes.caffeine.cache.LoadingCache
 import com.google.gson.JsonObject
 import net.sourceforge.plantuml.FileFormat
 import net.sourceforge.plantuml.FileFormatOption
@@ -62,6 +64,11 @@ class Main {
         json.toString().toByteArray(Charsets.UTF_8)
     }()
 
+    val loader: LoadingCache<String, ByteArray> = Caffeine.newBuilder()
+            .maximumWeight(50 * 1024 * 1024) // about 50MiB
+            .weigher { key: String, value: ByteArray -> key.length + value.size }
+            .build({ key: String -> render(key) })
+
     fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
             GraphvizUtils.setDotExecutable(path.toString())
@@ -82,12 +89,12 @@ class Main {
 
         Spark.exception(Exception::class.java, { exception, request, response ->
             response.status(400)
-            render("@startuml\n${exception.message}\n\n@enduml\n", response)
+            renderToResponse("@startuml\n${exception.message}\n\n@enduml\n", response)
         })
 
         Spark.get("/svg/:source", { request, response ->
             val source = decodeSource(request.params(":source"))
-            render(source, response)
+            renderToResponse(source, response)
         })
 
         Spark.get("/version", { request, response ->
@@ -98,15 +105,19 @@ class Main {
         })
     }
 
-    fun render(source: String, response: Response) {
+    fun renderToResponse(source: String, response: Response) {
         response.type("image/svg+xml")
 
+        val svg = loader.get(source)!!
+        response.header("Content-Length", svg.size.toString())
+        response.raw().outputStream.write(svg);
+    }
+
+    fun render(source: String): ByteArray {
         val renderer = SourceStringReader(source)
         val outputStream = ByteArrayOutputStream()
         renderer.generateImage(outputStream, FileFormatOption(FileFormat.SVG, true))
-
-        response.header("Content-Length", outputStream.size().toString())
-        outputStream.writeTo(response.raw().outputStream)
+        return outputStream.toByteArray();
     }
 
     fun decodeSource(urlEncodedSource: String): String {
