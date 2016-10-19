@@ -9,8 +9,10 @@ import net.sourceforge.plantuml.code.CompressionZlib
 import net.sourceforge.plantuml.code.TranscoderImpl
 import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
 import org.slf4j.LoggerFactory
+import spark.Filter
 import spark.Response
 import spark.Spark
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.net.URLDecoder
 import java.nio.file.Files
@@ -54,6 +56,12 @@ class Main {
 
     val transcoder = TranscoderImpl(AsciiEncoder(), CompressionZlib())
 
+    val versionJson: ByteArray = {
+        val json = JsonObject()
+        json.addProperty("PlantUML", javaClass.getPackage().implementationVersion)
+        json.toString().toByteArray(Charsets.UTF_8)
+    }()
+
     fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
             GraphvizUtils.setDotExecutable(path.toString())
@@ -65,17 +73,16 @@ class Main {
 
         Spark.port(port)
 
-        Spark.before { request, response ->
+        Spark.before(Filter { request, response ->
             installGraphvizDotExecutable(graphvizDot)
-        }
-
-        Spark.after { request, response ->
+        })
+        Spark.after(Filter { request, response ->
             response.header("Content-Encoding", "gzip")
-        }
+        })
 
         Spark.exception(Exception::class.java, { exception, request, response ->
             response.status(400)
-            render("@startuml\n${exception.message}\n@enduml\n", response)
+            render("@startuml\n${exception.message}\n\n@enduml\n", response)
         })
 
         Spark.get("/svg/:source", { request, response ->
@@ -85,9 +92,9 @@ class Main {
 
         Spark.get("/version", { request, response ->
             response.type("application/json")
-            val json = JsonObject()
-            json.addProperty("PlantUML", javaClass.getPackage().implementationVersion)
-            response.body(json.toString())
+
+            response.header("Content-Length", versionJson.size.toString())
+            response.raw().outputStream.write(versionJson);
         })
     }
 
@@ -95,7 +102,11 @@ class Main {
         response.type("image/svg+xml")
 
         val renderer = SourceStringReader(source)
-        renderer.generateImage(response.raw().outputStream, FileFormatOption(FileFormat.SVG, true))
+        val outputStream = ByteArrayOutputStream()
+        renderer.generateImage(outputStream, FileFormatOption(FileFormat.SVG, true))
+
+        response.header("Content-Length", outputStream.size().toString())
+        outputStream.writeTo(response.raw().outputStream)
     }
 
     fun decodeSource(urlEncodedSource: String): String {
