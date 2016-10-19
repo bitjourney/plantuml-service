@@ -10,6 +10,7 @@ import net.sourceforge.plantuml.code.AsciiEncoder
 import net.sourceforge.plantuml.code.CompressionZlib
 import net.sourceforge.plantuml.code.TranscoderImpl
 import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
+import net.sourceforge.plantuml.preproc.Defines
 import org.slf4j.LoggerFactory
 import spark.Filter
 import spark.Response
@@ -20,6 +21,7 @@ import java.net.URLDecoder
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.*
 
 class Main {
     companion object {
@@ -69,6 +71,8 @@ class Main {
             .weigher { key: String, value: ByteArray -> key.length + value.size }
             .build({ key: String -> render(key) })
 
+    val defaultConfig = Arrays.asList("skinparam monochrome true")
+
     fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
             GraphvizUtils.setDotExecutable(path.toString())
@@ -114,7 +118,7 @@ class Main {
     }
 
     fun render(source: String): ByteArray {
-        val renderer = SourceStringReader(source)
+        val renderer = SourceStringReader(Defines(), source, defaultConfig)
         val outputStream = ByteArrayOutputStream()
         renderer.generateImage(outputStream, FileFormatOption(FileFormat.SVG, true))
         return outputStream.toByteArray();
