@@ -9,26 +9,39 @@ This is an HTTP interface to [PlantUML](http://plantuml.com/).
 
 Returns an SVG image of `:source` processed by PlantUML.
 
-`:source` is source code encoded in [PlantUML Text Encoding](http://plantuml.com/pte.html).
-
-This is compatible with `plantuml-server` (e.g. `http://plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000`).
+`:source` is source code of PlantUML, encoded in [percent encoding](https://en.wikipedia.org/wiki/Percent-encoding).
 
 Example:
 
-```markdown
-![example](https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
+Givne a PlantUML source code:
+
+```
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
 ```
 
-![example](https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
+To show it in SVG:
 
-* https://plantuml-service.herokuapp.com/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+```markdown
+![]($ENDPOINT/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A)
+```
+
+Then, you'll get:
+
+
+<a href="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"><img src="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"/></a>
 
 ### `GET /version`
 
 Shows the PlantUML version in JSON:
 
 ```json
-{"PlantUML":"8046"}
+{"PlantUML":"8048"}
 ```
 
 This is also intended to check the service helth.
