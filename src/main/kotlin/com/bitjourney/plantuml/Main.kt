@@ -66,10 +66,10 @@ class Main {
         json.toString().toByteArray(Charsets.UTF_8)
     }()
 
-    val loader: LoadingCache<String, ByteArray> = Caffeine.newBuilder()
+    val loader: LoadingCache<DataSource, ByteArray> = Caffeine.newBuilder()
             .maximumWeight(50 * 1024 * 1024) // about 50MiB
-            .weigher { key: String, value: ByteArray -> key.length + value.size }
-            .build({ key: String -> render(key) })
+            .weigher { key: DataSource, value: ByteArray -> key.weight() + value.size }
+            .build({ key: DataSource -> render(key) })
 
     val defaultConfig = Arrays.asList("skinparam monochrome true")
 
@@ -97,8 +97,9 @@ class Main {
         })
 
         Spark.get("/svg/:source", { request, response ->
+            val configArray = request.queryParamsValues("config")
             val source = decodeSource(request.params(":source"))
-            renderToResponse(source, response)
+            renderToResponse(source, response, configArray)
         })
 
         Spark.get("/version", { request, response ->
@@ -109,16 +110,16 @@ class Main {
         })
     }
 
-    fun renderToResponse(source: String, response: Response) {
+    fun renderToResponse(source: String, response: Response, configArray: Array<String>? = null) {
         response.type("image/svg+xml")
 
-        val svg = loader.get(source)!!
+        val svg = loader.get(DataSource(source, defaultConfig +  (configArray ?: arrayOf()).toList()))!!
         response.header("Content-Length", svg.size.toString())
         response.raw().outputStream.write(svg);
     }
 
-    fun render(source: String): ByteArray {
-        val renderer = SourceStringReader(Defines(), source, defaultConfig)
+    fun render(data: DataSource): ByteArray {
+        val renderer = SourceStringReader(Defines(), data.source, data.configArray)
         val outputStream = ByteArrayOutputStream()
         renderer.generateImage(outputStream, FileFormatOption(FileFormat.SVG, true))
         return outputStream.toByteArray();
