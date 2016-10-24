@@ -15,7 +15,7 @@ Example:
 
 Givne a PlantUML source code:
 
-```
+```plantuml
 @startuml
 Alice -> Bob: Authentication Request
 Bob --> Alice: Authentication Response
@@ -42,17 +42,27 @@ This path takes `config` parameters to set configuration, for example:
 
 ### `GET /version`
 
-Shows the PlantUML version in JSON:
+Shows the version of PlantUML runtime in JSON:
 
 ```json
 {"PlantUML":"8048"}
 ```
 
-This is also intended to check the service helth.
+This is intended to check the service helth.
 
 Example:
 
 * https://plantuml-service.herokuapp.com/version
+
+
+## Homebrew Tap
+
+There is a homebrew formula in [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self) for macOS:
+
+```sh
+brew install bitjourney/self/plantuml-service
+brew services start bitjourney/self/plantuml-service
+```
 
 ## Development
 
@@ -62,7 +72,12 @@ Run on local:
 ./gradlew stage && heroku local:start
 ```
 
-Production:
+## Deployment
+
+### Run on Heroku
+
+
+Deploy to Heroku:
 
 ```sh
 # build
@@ -72,19 +87,9 @@ Production:
 bin/plantuml-service $PORT
 ```
 
-## For macOS
-
-There is a homebrew formula in [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self):
-
-```sh
-brew install bitjourney/self/plantuml-service
-brew services start bitjourney/self/plantuml-service
-```
-
-## Deployment
+### Run with systemd
 
 Here is an example systemd.service(5) config file:
-
 
 ```ini
 [Unit]
@@ -106,6 +111,8 @@ WantedBy=multi-user.target
 
 ## See Also
 
+* http://plantuml.com/
+* https://github.com/plantuml/plantuml
 * https://github.com/plantuml/plantuml-server
 
 ## Author
