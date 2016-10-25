@@ -1,7 +1,7 @@
 
 # PlantUML HTTP service [![CircleCI](https://circleci.com/gh/bitjourney/plantuml-service.svg?style=svg)](https://circleci.com/gh/bitjourney/plantuml-service)
 
-This is an HTTP interface to [PlantUML](http://plantuml.com/).
+This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
 
 ## Usage
 
