@@ -36,9 +36,9 @@ Then, you'll get:
 
 <a href="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"><img src="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"/></a>
 
-This path takes `config` parameters to set configuration, for example:
+This path takes multiple `config` parameters to set configuration, for example:
 
-`/svg/...?config=scale max 1024 width&skin=BlueModern`
+`/svg/...?config=scale max 1024 width&config=skin BlueModern`
 
 ### `GET /version`
 
