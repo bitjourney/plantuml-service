@@ -23,7 +23,7 @@ dependencies {
     compile "com.sparkjava:spark-core:2.5.1"
     compile "com.github.ben-manes.caffeine:caffeine:2.3.3"
     compile "org.slf4j:slf4j-simple:1.7.21"
-    compile "com.google.code.gson:gson:2.7"
+    compile "com.google.code.gson:gson:2.8.0"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {
