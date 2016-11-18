@@ -3,6 +3,45 @@
 
 This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
 
+## Table of Contents
+
+<!-- TOC depthFrom:2 -->
+
+- [Table of Contents](#table-of-contents)
+- [Install](#install)
+    - [Jar](#jar)
+    - [Homebrew Tap](#homebrew-tap)
+- [Usage](#usage)
+    - [`GET /svg/:source`](#get-svgsource)
+    - [`GET /version`](#get-version)
+- [Development](#development)
+- [Deployment](#deployment)
+    - [Run on Heroku](#run-on-heroku)
+    - [Run with systemd](#run-with-systemd)
+- [Release Engineering](#release-engineering)
+- [See Also](#see-also)
+- [Authors](#authors)
+- [License](#license)
+
+<!-- /TOC -->
+
+## Install
+
+There's two way to install plantuml-service:
+
+### Jar
+
+Get `plantuml-service.jar` from [GitHub releases](https://github.com/bitjourney/plantuml-service/releases).
+
+### Homebrew Tap
+
+There is a homebrew formula in [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self) for macOS:
+
+```sh
+brew install bitjourney/self/plantuml-service
+brew services start bitjourney/self/plantuml-service
+```
+
 ## Usage
 
 ### `GET /svg/:source`
@@ -13,7 +52,7 @@ Returns an SVG image of `:source` processed by PlantUML.
 
 Example:
 
-Givne a PlantUML source code:
+Given a PlantUML source code:
 
 ```plantuml
 @startuml
@@ -32,13 +71,13 @@ To show it in SVG:
 ```
 
 Then, you'll get:
-
-
 <a href="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"><img src="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"/></a>
 
 This path takes multiple `config` parameters to set configuration, for example:
 
 `/svg/...?config=scale max 1024 width&config=skin BlueModern`
+
+NOTE: you should use server-side RPC to render SVG because browsers have URL limitations.
 
 ### `GET /version`
 
@@ -53,16 +92,6 @@ This is intended to check the service helth.
 Example:
 
 * https://plantuml-service.herokuapp.com/version
-
-
-## Homebrew Tap
-
-There is a homebrew formula in [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self) for macOS:
-
-```sh
-brew install bitjourney/self/plantuml-service
-brew services start bitjourney/self/plantuml-service
-```
 
 ## Development
 
@@ -122,9 +151,9 @@ WantedBy=multi-user.target
 * https://github.com/plantuml/plantuml
 * https://github.com/plantuml/plantuml-server
 
-## Author
+## Authors
 
-FUJI Goro ([gfx](https://github.com/gfx)).
+* FUJI Goro ([gfx](https://github.com/gfx))
 
 ## License
 
