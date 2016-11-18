@@ -9,6 +9,8 @@ buildscript {
     }
 }
 
+def ext = project.rootProject.ext
+
 assert ext.version
 assert ext.githubOwner
 assert ext.githubRepo
@@ -27,7 +29,7 @@ task release {
             .commitish("master")
             .create();
 
-        release.uploadAsset(ext.artifactContentType, ext.artifactFile)
+        release.uploadAsset(ext.artifactFile, ext.artifactContentType)
 
         println release.getHtmlUrl()
     }
