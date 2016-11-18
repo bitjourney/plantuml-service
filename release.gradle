@@ -17,7 +17,7 @@ assert ext.githubRepo
 assert ext.artifactFile.exists()
 assert ext.artifactContentType
 
-task release {
+task('release', dependsOn: stage) {
     doLast {
         println("release for ${ext.version}")
 
@@ -26,6 +26,7 @@ task release {
 
         final release = repo.createRelease("v${ext.version}")
             .name("v${ext.version}")
+            .body("Version v${version} of ${ext.githubOwner}/${ext.githubRepo}.")
             .commitish("master")
             .create();
 
