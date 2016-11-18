@@ -1,0 +1,34 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        // http://github-api.kohsuke.org/
+        classpath "org.kohsuke:github-api:1.79"
+    }
+}
+
+assert ext.version
+assert ext.githubOwner
+assert ext.githubRepo
+assert ext.artifactFile.exists()
+assert ext.artifactContentType
+
+task release {
+    doLast {
+        println("release for ${ext.version}")
+
+        final github = org.kohsuke.github.GitHub.connect()
+        final repo = github.getRepository("${ext.githubOwner}/${ext.githubRepo}")
+
+        final release = repo.createRelease("v${ext.version}")
+            .name("v${ext.version}")
+            .commitish("master")
+            .create();
+
+        release.uploadAsset(ext.artifactContentType, ext.artifactFile)
+
+        println release.getHtmlUrl()
+    }
+}
