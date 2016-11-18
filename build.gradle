@@ -55,7 +55,7 @@ if (System.getenv("GITHUB_ACCESS_TOKEN")) {
     apply plugin: 'co.riiid.gradle'
     github {
         owner = 'gfx'
-        repo = 'gradle-github-plugin'
+        repo = 'plantuml-service'
         token = System.getenv("GITHUB_ACCESS_TOKEN")
         tagName = "v${version}"
         name = "v${version}"
