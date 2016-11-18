@@ -13,6 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'co.riiid:gradle-github-plugin:0.4.2'
     }
 }
 
@@ -48,4 +49,16 @@ jar {
 task stage(type: Copy, dependsOn: jar) {
     from file("build/libs/${ArchiveName}")
     into file("bin/")
+}
+
+if (System.getenv("GITHUB_ACCESS_TOKEN")) {
+    apply plugin: 'co.riiid.gradle'
+    github {
+        owner = 'gfx'
+        repo = 'gradle-github-plugin'
+        token = System.getenv("GITHUB_ACCESS_TOKEN")
+        tagName = "v${version}"
+        name = "v${version}"
+        assets = [ 'bin/plantuml-service.jar' ]
+    }
 }
