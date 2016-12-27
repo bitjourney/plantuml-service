@@ -81,13 +81,13 @@ NOTE: you should use server-side RPC to render SVG because browsers have URL lim
 
 ### `GET /version`
 
-Shows the version of PlantUML runtime in JSON:
+Shows the version of PlantUML and plantuml-service in JSON:
 
 ```json
-{"PlantUML":"8048"}
+{"PlantUML":"8053","plantuml-service":"1.0.6"}
 ```
 
-This is intended to check the service helth.
+This is also intended to check the service helth.
 
 Example:
 
