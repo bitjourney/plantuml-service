@@ -62,7 +62,8 @@ class Main {
 
     val versionJson: ByteArray = {
         val json = JsonObject()
-        json.addProperty("PlantUML", javaClass.getPackage().implementationVersion)
+        json.addProperty("PlantUML", javaClass.getPackage().specificationVersion)
+        json.addProperty("plantuml-service", javaClass.getPackage().implementationVersion)
         json.toString().toByteArray(Charsets.UTF_8)
     }()
 
