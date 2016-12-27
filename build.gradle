@@ -2,7 +2,9 @@ group 'com.bitjourney.plantuml'
 version '1.0.6'
 
 final MainClassName = "${group}.Main"
-final PlantUmlVersion = 8049
+
+// See http://plantuml.com/changes
+final PlantUmlVersion = 8053
 
 final ArchiveName = "plantuml-service.jar"
 
