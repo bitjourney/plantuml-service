@@ -11,14 +11,14 @@ buildscript {
 
 def ext = project.rootProject.ext
 
-assert ext.version
-assert ext.githubOwner
-assert ext.githubRepo
-assert ext.artifactFile.exists()
-assert ext.artifactContentType
-
 task('release', dependsOn: stage) {
     doLast {
+        assert ext.version
+        assert ext.githubOwner
+        assert ext.githubRepo
+        assert ext.artifactFile.exists()
+        assert ext.artifactContentType
+
         println("release for ${ext.version}")
 
         final github = org.kohsuke.github.GitHub.connect()
