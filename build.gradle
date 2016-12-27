@@ -37,9 +37,11 @@ jar {
     manifest {
         attributes(
                 "Main-Class": MainClassName,
-                "Implementation-Version": PlantUmlVersion
+                "Specification-Version": PlantUmlVersion,
+                "Implementation-Title": "plantuml-service",
+                "Implementation-Version": version,
+                "Implementation-Vendor": "BitJourney, Inc."
         )
-
     }
 
     from {
