@@ -1,5 +1,7 @@
 # The Revision Histroy of plantuml-service
 
+See also PlantUML change logs for its updates: http://plantuml.com/changes
+
 ## v1.0.7 - 2016/12/27
 
 https://github.com/bitjourney/plantuml-service/compare/v1.0.6...v1.0.7
