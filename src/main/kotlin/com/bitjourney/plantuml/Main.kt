@@ -40,8 +40,16 @@ class Main {
          */
         @JvmStatic
         fun main(args: Array<String>) {
-            val port = if (args.size > 0) args[0].toInt() else DEFAULT_PORT
-            val graphvizDot = if (args.size > 1) Paths.get(args[1]) else findCommand("dot")
+            val port = if (args.isNotEmpty()) {
+                args[0].toInt()
+            } else {
+                DEFAULT_PORT
+            }
+            val graphvizDot = if (args.size > 1) {
+                Paths.get(args[1])
+            } else {
+                findCommand("dot")
+            }
             Main().start(port, graphvizDot)
         }
 
@@ -67,12 +75,12 @@ class Main {
         json.toString().toByteArray(Charsets.UTF_8)
     }()
 
+    val defaultConfig = Arrays.asList("skinparam monochrome true")
+
     val loader: LoadingCache<DataSource, ByteArray> = Caffeine.newBuilder()
             .maximumWeight(50 * 1024 * 1024) // about 50MiB
             .weigher { key: DataSource, value: ByteArray -> key.weight() + value.size }
             .build({ key: DataSource -> render(key) })
-
-    val defaultConfig = Arrays.asList("skinparam monochrome true")
 
     fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
@@ -114,7 +122,7 @@ class Main {
     fun renderToResponse(source: String, response: Response, configArray: Array<String>? = null) {
         response.type("image/svg+xml")
 
-        val svg = loader.get(DataSource(source, defaultConfig +  (configArray ?: arrayOf()).toList()))!!
+        val svg = loader.get(DataSource(source, defaultConfig + (configArray ?: arrayOf()).toList()))!!
         response.header("Content-Length", svg.size.toString())
         response.raw().outputStream.write(svg);
     }
