@@ -2,6 +2,13 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
+## v1.0.9 - 2017/04/24
+
+https://github.com/bitjourney/plantuml-service/compare/v1.0.8...v1.0.9
+
+* [#14](https://github.com/bitjourney/plantuml-service/pull/14) Upgrade PlantUML to 2017.11, fixing deprecation warnings
+
+
 ## v1.0.8 - 2017/03/17
 
 https://github.com/bitjourney/plantuml-service/compare/v1.0.7...v1.0.8
