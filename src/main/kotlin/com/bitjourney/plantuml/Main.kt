@@ -77,6 +77,8 @@ class Main {
 
     val defaultConfig = Arrays.asList("skinparam monochrome true")
 
+    val outputFormat = FileFormatOption(FileFormat.SVG, true)
+
     val loader: LoadingCache<DataSource, ByteArray> = Caffeine.newBuilder()
             .maximumWeight(50 * 1024 * 1024) // about 50MiB
             .weigher { key: DataSource, value: ByteArray -> key.weight() + value.size }
@@ -115,7 +117,7 @@ class Main {
             response.type("application/json")
 
             response.header("Content-Length", versionJson.size.toString())
-            response.raw().outputStream.write(versionJson);
+            response.raw().outputStream.write(versionJson)
         })
     }
 
@@ -124,14 +126,14 @@ class Main {
 
         val svg = loader.get(DataSource(source, defaultConfig + (configArray ?: arrayOf()).toList()))!!
         response.header("Content-Length", svg.size.toString())
-        response.raw().outputStream.write(svg);
+        response.raw().outputStream.write(svg)
     }
 
     fun render(data: DataSource): ByteArray {
-        val renderer = SourceStringReader(Defines(), data.source, data.configArray)
+        val renderer = SourceStringReader(Defines.createEmpty(), data.source, data.configArray)
         val outputStream = ByteArrayOutputStream()
-        renderer.generateImage(outputStream, FileFormatOption(FileFormat.SVG, true))
-        return outputStream.toByteArray();
+        renderer.outputImage(outputStream, outputFormat)
+        return outputStream.toByteArray()
     }
 
     fun decodeSource(urlEncodedSource: String): String {
