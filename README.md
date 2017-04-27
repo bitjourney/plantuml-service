@@ -71,6 +71,7 @@ To show it in SVG:
 ```
 
 Then, you'll get:
+
 <a href="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"><img src="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"/></a>
 
 This path takes multiple `config` parameters to set configuration, for example:
@@ -84,7 +85,7 @@ NOTE: you should use server-side RPC to render SVG because browsers have URL lim
 Shows the version of PlantUML and plantuml-service in JSON:
 
 ```json
-{"PlantUML":"8053","plantuml-service":"1.0.6"}
+{"PlantUML":"2017.11","plantuml-service":"1.0.9"}
 ```
 
 This is also intended to check the service helth.
