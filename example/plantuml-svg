@@ -2,7 +2,6 @@
 # usage: plantuml-svg file.plantuml (or < file.plantuml)
 require 'net/http'
 require 'uri'
-require 'json'
 
 ENDPOINT = 'https://plantuml-service.herokuapp.com/'
 
