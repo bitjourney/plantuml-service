@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
+# an example command line tool for plantuml-service
+#
 # usage: plantuml-svg file.plantuml (or < file.plantuml)
+
 require 'net/http'
 require 'uri'
 
