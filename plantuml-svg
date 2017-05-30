@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+# usage: plantuml-svg file.plantuml (or < file.plantuml)
+require 'net/http'
+require 'uri'
+require 'json'
+
+ENDPOINT = 'https://plantuml-service.herokuapp.com/'
+
+if ARGV.first == "--version"
+  uri = URI(ENDPOINT)
+  uri.path = "/version"
+  puts Net::HTTP.get(uri)
+else
+  uri = URI(ENDPOINT)
+  uri.path = "/svg/#{URI.escape(ARGF.read)}"
+  puts Net::HTTP.get(uri)
+end
+
+
