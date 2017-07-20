@@ -2,6 +2,13 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
+## v1.1.0 - 2017/07/20
+
+https://github.com/bitjourney/plantuml-service/compare/v1.0.10...v1.1.0
+
+* Upgrade PlantUML to v1.2017.15
+* [#19](https://github.com/bitjourney/plantuml-service/pull/19) Add `POST /svg` endpoint
+
 ## v1.0.10 - 2017/05/28
 
 https://github.com/bitjourney/plantuml-service/compare/v1.0.9...v1.0.10
