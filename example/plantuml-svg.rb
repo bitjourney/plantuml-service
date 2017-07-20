@@ -6,7 +6,7 @@
 require 'net/http'
 require 'uri'
 
-ENDPOINT = 'https://plantuml-service.herokuapp.com/'
+ENDPOINT = ENV['PLANTUML_ENDPOINT'] || 'https://plantuml-service.herokuapp.com/'
 
 if ARGV.first == "--version"
   uri = URI(ENDPOINT)
@@ -14,8 +14,12 @@ if ARGV.first == "--version"
   puts Net::HTTP.get(uri)
 else
   uri = URI(ENDPOINT)
-  uri.path = "/svg/#{URI.escape(ARGF.read)}"
-  puts Net::HTTP.get(uri)
+  uri.path = "/svg"
+  request = Net::HTTP::Post.new(uri)
+  request.body = ARGF.read
+  Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+    puts http.request(request).body
+  end
 end
 
 

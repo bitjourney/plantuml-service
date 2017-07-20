@@ -113,6 +113,13 @@ class Main {
             renderToResponse(source, response, configArray)
         })
 
+        Spark.post("/svg", { request, response ->
+            val configArray = request.queryParamsValues("config")
+            request.body()
+            val source = decodeSource(request.body())
+            renderToResponse(source, response, configArray)
+        })
+
         Spark.get("/version", { request, response ->
             response.type("application/json")
 

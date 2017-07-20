@@ -12,6 +12,7 @@ This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
     - [Jar](#jar)
     - [Homebrew Tap](#homebrew-tap)
 - [Usage](#usage)
+    - [`POST /svg` where `body` is the source of PlantUML](#post-svg-where-body-is-the-source-of-plantuml)
     - [`GET /svg/:source`](#get-svgsource)
     - [`GET /version`](#get-version)
 - [Development](#development)
@@ -43,6 +44,13 @@ brew services start bitjourney/self/plantuml-service
 ```
 
 ## Usage
+
+### `POST /svg` where `body` is the source of PlantUML
+
+
+Returns an SVG image of the request body, processed by PlantUML.
+
+Because the size of GET requests might be limited by middlewares, the POST API is recommended in production.
 
 ### `GET /svg/:source`
 
