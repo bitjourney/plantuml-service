@@ -4,7 +4,7 @@ version '1.0.10'
 final MainClassName = "${group}.Main"
 
 // See http://plantuml.com/changes
-final PlantUmlVersion = "1.2017.13"
+final PlantUmlVersion = "1.2017.15"
 
 final ArchiveName = "plantuml-service.jar"
 
