@@ -20,13 +20,20 @@ buildscript {
 
 apply plugin: 'kotlin'
 
-dependencies {
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+de
+pendencies {
     compile "net.sourceforge.plantuml:plantuml:$PlantUmlVersion"
     compile "com.sparkjava:spark-core:2.6.0"
     compile "com.github.ben-manes.caffeine:caffeine:2.4.0"
     compile "org.slf4j:slf4j-simple:1.7.21"
     compile "com.google.code.gson:gson:2.8.0"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.6.2'
 }
