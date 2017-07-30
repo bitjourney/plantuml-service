@@ -68,12 +68,11 @@ class Main {
 
     val transcoder = TranscoderImpl(AsciiEncoder(), CompressionZlib())
 
-    val versionJson: ByteArray = {
-        val json = JsonObject()
+    val versionJson: ByteArray = JsonObject().let { json ->
         json.addProperty("PlantUML", javaClass.getPackage().specificationVersion)
         json.addProperty("plantuml-service", javaClass.getPackage().implementationVersion)
         json.toString().toByteArray(Charsets.UTF_8)
-    }()
+    }
 
     val defaultConfig = Arrays.asList("skinparam monochrome true")
 
@@ -95,14 +94,14 @@ class Main {
 
         Spark.port(port)
 
-        Spark.before(Filter { request, response ->
+        Spark.before(Filter { _, response ->
             installGraphvizDotExecutable(graphvizDot)
         })
-        Spark.after(Filter { request, response ->
+        Spark.after(Filter { _, response ->
             response.header("Content-Encoding", "gzip")
         })
 
-        Spark.exception(Exception::class.java, { exception, request, response ->
+        Spark.exception(Exception::class.java, { exception, _, response ->
             response.status(400)
             renderToResponse("@startuml\n${exception.message}\n\n@enduml\n", response)
         })
@@ -120,7 +119,7 @@ class Main {
             renderToResponse(source, response, configArray)
         })
 
-        Spark.get("/version", { request, response ->
+        Spark.get("/version", { _, response ->
             response.type("application/json")
 
             response.header("Content-Length", versionJson.size.toString())
