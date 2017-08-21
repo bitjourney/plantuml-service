@@ -30,7 +30,7 @@ compileTestKotlin {
 dependencies {
     compile "net.sourceforge.plantuml:plantuml:$PlantUmlVersion"
     compile "com.sparkjava:spark-core:2.6.0"
-    compile "com.github.ben-manes.caffeine:caffeine:2.5.3"
+    compile "com.github.ben-manes.caffeine:caffeine:2.5.5"
     compile "org.slf4j:slf4j-simple:1.7.21"
     compile "com.google.code.gson:gson:2.8.1"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
