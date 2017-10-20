@@ -2,6 +2,12 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
+## v1.2.0 - 2017/10/20
+
+https://github.com/bitjourney/plantuml-service/compare/v1.1.1...v1.2.0
+
+* Remove the default `skinparam monochrome true` config that caused SALT syntax errors [#22](https://github.com/bitjourney/plantuml-service/pull/22)
+
 ## v1.1.1 - 2017/10/10
 
 https://github.com/bitjourney/plantuml-service/compare/v1.1.0...v1.1.1
