@@ -74,7 +74,8 @@ class Main {
         json.toString().toByteArray(Charsets.UTF_8)
     }
 
-    val defaultConfig = Arrays.asList("skinparam monochrome true")
+    // NOTE: Remove "skinparam monochrome true" for a while because it lets "SALT" to cause errors :(
+    val defaultConfig:List<String> = Arrays.asList()
 
     val outputFormat = FileFormatOption(FileFormat.SVG, true)
 
