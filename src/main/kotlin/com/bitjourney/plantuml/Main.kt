@@ -75,7 +75,7 @@ class Main {
     }
 
     // NOTE: Remove "skinparam monochrome true" for a while because it lets "SALT" to cause errors :(
-    val defaultConfig:List<String> = Arrays.asList()
+    val defaultConfig: List<String> = Arrays.asList()
 
     val outputFormat = FileFormatOption(FileFormat.SVG, true)
 
@@ -97,15 +97,27 @@ class Main {
 
         Spark.before(Filter { _, response ->
             installGraphvizDotExecutable(graphvizDot)
+            response.header("Access-Control-Allow-Origin", "*")
         })
         Spark.after(Filter { _, response ->
             response.header("Content-Encoding", "gzip")
-            response.header("Access-Control-Allow-Origin", "*")
         })
 
         Spark.exception(Exception::class.java, { exception, _, response ->
             response.status(400)
             renderToResponse("@startuml\n${exception.message}\n\n@enduml\n", response)
+        })
+
+        Spark.options("/*", { request, response ->
+            val accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
+
+            val accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
         })
 
         Spark.get("/svg/:source", { request, response ->
