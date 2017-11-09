@@ -74,6 +74,11 @@ class Main {
         json.toString().toByteArray(Charsets.UTF_8)
     }
 
+    val identityJson: ByteArray = JsonObject().let { json ->
+        json.addProperty("repository", "https://github.com/bitjourney/plantuml-service")
+        json.toString().toByteArray(Charsets.UTF_8)
+    }
+
     // NOTE: Remove "skinparam monochrome true" for a while because it lets "SALT" to cause errors :(
     val defaultConfig: List<String> = Arrays.asList()
 
@@ -118,6 +123,12 @@ class Main {
             if (accessControlRequestMethod != null) {
                 response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
             }
+        })
+
+        Spark.get("/", { request, response ->
+            response.type("application/json")
+            response.header("Content-Length", identityJson.size.toString())
+            response.raw().outputStream.write(identityJson)
         })
 
         Spark.get("/svg/:source", { request, response ->
