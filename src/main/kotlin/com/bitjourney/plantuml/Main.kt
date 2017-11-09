@@ -100,6 +100,7 @@ class Main {
         })
         Spark.after(Filter { _, response ->
             response.header("Content-Encoding", "gzip")
+            response.header("Access-Control-Allow-Origin", "*")
         })
 
         Spark.exception(Exception::class.java, { exception, _, response ->
