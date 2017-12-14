@@ -9,7 +9,7 @@ final PlantUmlVersion = "1.2017.20"
 final ArchiveName = "plantuml-service.jar"
 
 buildscript {
-    ext.kotlin_version = '1.1.61'
+    ext.kotlin_version = '1.2.10'
     repositories {
         jcenter()
     }
