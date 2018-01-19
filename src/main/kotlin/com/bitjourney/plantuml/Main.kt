@@ -5,12 +5,12 @@ import com.github.benmanes.caffeine.cache.LoadingCache
 import com.google.gson.JsonObject
 import net.sourceforge.plantuml.FileFormat
 import net.sourceforge.plantuml.FileFormatOption
+import net.sourceforge.plantuml.Option
 import net.sourceforge.plantuml.SourceStringReader
 import net.sourceforge.plantuml.code.AsciiEncoder
 import net.sourceforge.plantuml.code.CompressionZlib
 import net.sourceforge.plantuml.code.TranscoderImpl
 import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
-import net.sourceforge.plantuml.preproc.Defines
 import org.slf4j.LoggerFactory
 import spark.Filter
 import spark.Response
@@ -21,7 +21,6 @@ import java.net.URLDecoder
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.*
 
 class Main {
     companion object {
@@ -82,7 +81,8 @@ class Main {
     }
 
     // NOTE: Remove "skinparam monochrome true" for a while because it lets "SALT" to cause errors :(
-    val defaultConfig: List<String> = Arrays.asList()
+    //val defaultConfig: List<String> = Arrays.asList()
+    val option = Option()
 
     val outputFormat = FileFormatOption(FileFormat.SVG, true)
 
@@ -157,13 +157,13 @@ class Main {
     fun renderToResponse(source: String, response: Response, configArray: Array<String>? = null) {
         response.type("image/svg+xml")
 
-        val svg = loader.get(DataSource(source, defaultConfig + (configArray ?: arrayOf()).toList()))!!
+        val svg = loader.get(DataSource(source, option))!!
         response.header("Content-Length", svg.size.toString())
         response.raw().outputStream.write(svg)
     }
 
     fun render(data: DataSource): ByteArray {
-        val renderer = SourceStringReader(Defines.createEmpty(), data.source, data.configArray)
+        val renderer = SourceStringReader(data.option.defaultDefines, data.source, data.option.config)
         val outputStream = ByteArrayOutputStream()
         renderer.outputImage(outputStream, outputFormat)
         return outputStream.toByteArray()
