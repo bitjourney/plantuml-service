@@ -15,7 +15,6 @@ import spark.Response
 import spark.Spark
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.net.URLDecoder
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -139,7 +138,6 @@ class Main {
 
         Spark.post("/svg", { request, response ->
             val configArray = request.queryParamsValues("config")
-            request.body()
             val source = decodeSource(request.body())
             renderToResponse(source, response, configArray)
         })
@@ -167,9 +165,7 @@ class Main {
         return outputStream.toByteArray()
     }
 
-    fun decodeSource(urlEncodedSource: String): String {
-        val source = URLDecoder.decode(urlEncodedSource, "UTF-8")
-
+    fun decodeSource(source: String): String {
         if (source.startsWith("@startuml")) {
             return source
         } else {
