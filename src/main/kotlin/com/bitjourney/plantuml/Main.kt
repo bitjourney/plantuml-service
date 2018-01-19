@@ -3,8 +3,6 @@ package com.bitjourney.plantuml
 import com.github.benmanes.caffeine.cache.Caffeine
 import com.github.benmanes.caffeine.cache.LoadingCache
 import com.google.gson.JsonObject
-import net.sourceforge.plantuml.FileFormat
-import net.sourceforge.plantuml.FileFormatOption
 import net.sourceforge.plantuml.Option
 import net.sourceforge.plantuml.SourceStringReader
 import net.sourceforge.plantuml.code.AsciiEncoder
@@ -31,7 +29,7 @@ class Main {
             System.setProperty("file.encoding", "UTF-8")
 
             // -Djava.awt.headless=true
-            // System.setProperty("java.awt.headless", "true")
+            System.setProperty("java.awt.headless", "true")
         }
 
         /*
@@ -51,6 +49,7 @@ class Main {
             } else {
                 findCommand("dot")
             }
+
             Main().start(port, graphvizDot)
         }
 
@@ -82,9 +81,7 @@ class Main {
 
     // NOTE: Remove "skinparam monochrome true" for a while because it lets "SALT" to cause errors :(
     //val defaultConfig: List<String> = Arrays.asList()
-    val option = Option()
-
-    val outputFormat = FileFormatOption(FileFormat.SVG, true)
+    val option = Option("-tsvg")
 
     val loader: LoadingCache<DataSource, ByteArray> = Caffeine.newBuilder()
             .maximumWeight(50 * 1024 * 1024) // about 50MiB
@@ -134,6 +131,7 @@ class Main {
         })
 
         Spark.get("/svg/:source", { request, response ->
+
             val configArray = request.queryParamsValues("config")
             val source = decodeSource(request.params(":source"))
             renderToResponse(source, response, configArray)
@@ -165,7 +163,7 @@ class Main {
     fun render(data: DataSource): ByteArray {
         val renderer = SourceStringReader(data.option.defaultDefines, data.source, data.option.config)
         val outputStream = ByteArrayOutputStream()
-        renderer.outputImage(outputStream, outputFormat)
+        renderer.outputImage(outputStream, data.option.fileFormatOption)
         return outputStream.toByteArray()
     }
 
