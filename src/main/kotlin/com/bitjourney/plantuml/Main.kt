@@ -28,9 +28,11 @@ class Main {
         val DEFAULT_PORT = 1608
 
         init {
-            //  -Djava.awt.headless=true -Dfile.encoding=UTF-8
+            // -Dfile.encoding=UTF-8
             System.setProperty("file.encoding", "UTF-8")
-            System.setProperty("java.awt.headless", "true")
+
+            // -Djava.awt.headless=true
+            // System.setProperty("java.awt.headless", "true")
         }
 
         /*
