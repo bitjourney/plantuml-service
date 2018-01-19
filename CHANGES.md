@@ -2,6 +2,13 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
+## v1.3.0 - 2018/01/19
+
+https://github.com/bitjourney/plantuml-service/compare/v1.2.4...v1.3.0
+
+* Fix [#26](https://github.com/bitjourney/plantuml-service/issues/26): SALT was broken when it includes "+"
+
+
 ## v1.2.4 - 2018/01/18
 
 https://github.com/bitjourney/plantuml-service/compare/v1.2.3...v1.2.4
