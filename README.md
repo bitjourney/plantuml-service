@@ -9,17 +9,18 @@ This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
 
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
-    - [Jar](#jar)
-    - [Homebrew Tap](#homebrew-tap)
+  - [Jar](#jar)
+  - [Homebrew Tap](#homebrew-tap)
 - [Usage](#usage)
-    - [`POST /svg` where `body` is the source of PlantUML](#post-svg-where-body-is-the-source-of-plantuml)
-    - [`GET /svg/:source`](#get-svgsource)
-    - [`GET /version`](#get-version)
+  - [`POST /svg` where `body` is the source of PlantUML](#post-svg-where-body-is-the-source-of-plantuml)
+  - [`GET /svg/:source`](#get-svgsource)
+  - [`GET /version`](#get-version)
 - [Development](#development)
 - [Deployment](#deployment)
-    - [Run on Heroku](#run-on-heroku)
-    - [Run with systemd](#run-with-systemd)
+  - [Run on Heroku](#run-on-heroku)
+  - [Run with systemd](#run-with-systemd)
 - [Release Engineering](#release-engineering)
+- [About `plantuml-service.herokuapp.com`](#about-plantuml-serviceherokuappcom)
 - [See Also](#see-also)
 - [Authors](#authors)
 - [License](#license)
@@ -153,6 +154,12 @@ WantedBy=multi-user.target
 1. Update the version of `build.gradle`
 2. Run `./gradlew release`
 3. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
+
+## About `plantuml-service.herokuapp.com`
+
+`plantuml-service.herokuapp.com` is an example service managed by [Bit Journey, Inc.](https://github.com/bitjourney/).
+
+Because this is an example, there's no guarantee for the availability.
 
 ## See Also
 
