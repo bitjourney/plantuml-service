@@ -33,7 +33,7 @@ dependencies {
     compile "com.github.ben-manes.caffeine:caffeine:2.5.6"
     compile "org.slf4j:slf4j-simple:1.7.21"
     compile "com.google.code.gson:gson:2.8.2"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.6.2'
 }
