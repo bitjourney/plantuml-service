@@ -130,16 +130,13 @@ class Main {
         })
 
         Spark.get("/svg/:source", { request, response ->
-
-            val configArray = request.queryParamsValues("config")
             val source = decodeSource(request.params(":source"))
-            renderToResponse(source, response, configArray)
+            renderToResponse(source, response)
         })
 
         Spark.post("/svg", { request, response ->
-            val configArray = request.queryParamsValues("config")
             val source = decodeSource(request.body())
-            renderToResponse(source, response, configArray)
+            renderToResponse(source, response)
         })
 
         Spark.get("/version", { _, response ->
@@ -150,7 +147,7 @@ class Main {
         })
     }
 
-    fun renderToResponse(source: String, response: Response, configArray: Array<String>? = null) {
+    fun renderToResponse(source: String, response: Response) {
         response.type("image/svg+xml")
 
         val svg = loader.get(DataSource(source, option))!!
