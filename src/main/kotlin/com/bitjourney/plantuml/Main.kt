@@ -5,9 +5,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache
 import com.google.gson.JsonObject
 import net.sourceforge.plantuml.Option
 import net.sourceforge.plantuml.SourceStringReader
-import net.sourceforge.plantuml.code.AsciiEncoder
-import net.sourceforge.plantuml.code.CompressionZlib
-import net.sourceforge.plantuml.code.TranscoderImpl
+import net.sourceforge.plantuml.code.TranscoderSmart
 import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
 import org.slf4j.LoggerFactory
 import spark.Filter
@@ -65,7 +63,7 @@ class Main {
 
     val logger = LoggerFactory.getLogger(Main::class.java)
 
-    val transcoder = TranscoderImpl(AsciiEncoder(), CompressionZlib())
+    val transcoder = TranscoderSmart()
 
     val versionJson: ByteArray = JsonObject().let { json ->
         json.addProperty("PlantUML", javaClass.getPackage().specificationVersion)
