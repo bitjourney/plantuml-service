@@ -1,7 +1,8 @@
 
-# PlantUML HTTP service [![CircleCI](https://circleci.com/gh/bitjourney/plantuml-service.svg?style=svg)](https://circleci.com/gh/bitjourney/plantuml-service)
+# PlantUML HTTP service [![Build Status](https://travis-ci.org/bitjourney/plantuml-service.svg?branch=master)](https://travis-ci.org/bitjourney/plantuml-service)
 
 This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
+
 
 ## Table of Contents
 
