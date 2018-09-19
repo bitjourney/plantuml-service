@@ -1,3 +1,4 @@
+# https://hub.docker.com/_/openjdk/
 FROM openjdk:8
 
 ARG PLANTUML_SERVICE_VERSION="1.3.3"
