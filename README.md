@@ -45,6 +45,14 @@ brew install bitjourney/self/plantuml-service
 brew services start bitjourney/self/plantuml-service
 ```
 
+### Docker
+
+There is a docker image in [Docker Hub](https://hub.docker.com/r/bitjourney/plantuml-service/).
+
+```sh
+docker pull bitjourney/plantuml-service
+```
+
 ## Usage
 
 ### `POST /svg` where `body` is the source of PlantUML
@@ -116,7 +124,6 @@ Run on local:
 
 ### Run on Heroku
 
-
 Deploy to Heroku:
 
 ```sh
@@ -151,10 +158,18 @@ WantedBy=multi-user.target
 
 ## Release Engineering
 
+### Homebrew
+
 0. Create the credential file by `echo "oauth=$GITHUB_ACCESS_TOKEN" > ~/.github`
 1. Update the version of `build.gradle`
 2. Run `./gradlew release`
 3. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
+
+### Docker Image
+
+0. Update the tag in `bin/release_docker_image.sh`
+1. Run `bin/release_docker_image.sh`
+2. Release to [Docker Hub](https://hub.docker.com/r/bitjourney/plantuml-service/).
 
 ## About `plantuml-service.herokuapp.com`
 
