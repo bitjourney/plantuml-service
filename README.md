@@ -12,6 +12,7 @@ This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
 - [Install](#install)
   - [Jar](#jar)
   - [Homebrew Tap](#homebrew-tap)
+  - [Docker](#docker)
 - [Usage](#usage)
   - [`POST /svg` where `body` is the source of PlantUML](#post-svg-where-body-is-the-source-of-plantuml)
   - [`GET /svg/:source`](#get-svgsource)
@@ -158,18 +159,12 @@ WantedBy=multi-user.target
 
 ## Release Engineering
 
-### Homebrew
-
 0. Create the credential file by `echo "oauth=$GITHUB_ACCESS_TOKEN" > ~/.github`
 1. Update the version of `build.gradle`
 2. Run `./gradlew release`
+  - It uploads artifacts to GitHub
+  - And then build the docker image and push the image to Docker Hub
 3. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
-
-### Docker Image
-
-0. Update the tag in `bin/release_docker_image.sh`
-1. Run `bin/release_docker_image.sh`
-2. Release to [Docker Hub](https://hub.docker.com/r/bitjourney/plantuml-service/).
 
 ## About `plantuml-service.herokuapp.com`
 
