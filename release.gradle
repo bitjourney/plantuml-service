@@ -54,7 +54,7 @@ task('release', dependsOn: stage) {
         shell("docker --version")
         shell("docker login")
         shell("docker build -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
-        shell("docker push ${TAG}")
+        shell("docker push ${dockerTag}")
 
         println release.getHtmlUrl()
     }
