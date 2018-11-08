@@ -159,12 +159,12 @@ WantedBy=multi-user.target
 
 ## Release Engineering
 
-0. Create the credential file by `echo "oauth=$GITHUB_ACCESS_TOKEN" > ~/.github`
-1. Update the version of `build.gradle`
-2. Run `./gradlew release`
+1. Create the credential file by `echo "oauth=$GITHUB_ACCESS_TOKEN" > ~/.github`
+2. Update the version of `build.gradle`
+3. Run `./gradlew release`
    - It uploads artifacts to GitHub
    - And then build the docker image and push the image to Docker Hub
-3. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
+4. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
 
 ## About `plantuml-service.herokuapp.com`
 
