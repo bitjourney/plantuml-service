@@ -9,6 +9,19 @@ buildscript {
     }
 }
 
+String shell(String command) {
+    def proc = ["sh", "-c", "cd ${project.rootDir} ; ${command}"].execute()
+    if (proc.waitFor() != 0) {
+        throw new RuntimeException("Failed to run: ${command}\n${proc.err.text}")
+    } else {
+        def err = proc.err.text
+        if (err) {
+            System.err.println(err)
+        }
+    }
+    return proc.in.text;
+}
+
 def ext = project.rootProject.ext
 
 task('release', dependsOn: stage) {
@@ -24,13 +37,24 @@ task('release', dependsOn: stage) {
         final github = org.kohsuke.github.GitHub.connect()
         final repo = github.getRepository("${ext.githubOwner}/${ext.githubRepo}")
 
+        final message = """
+            Version v${version} of ${ext.githubOwner}/${ext.githubRepo}.
+        """.trim()
+
         final release = repo.createRelease("v${ext.version}")
             .name("v${ext.version}")
-            .body("Version v${version} of ${ext.githubOwner}/${ext.githubRepo}.")
+            .body(message)
             .commitish("master")
             .create();
 
         release.uploadAsset(ext.artifactFile, ext.artifactContentType)
+
+        final dockerTag = "${ext.githubOwner}/${ext.githubRepo}:${version}"
+
+        shell("docker --version")
+        shell("docker login")
+        shell("docker build -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
+        shell("docker push ${TAG}")
 
         println release.getHtmlUrl()
     }
