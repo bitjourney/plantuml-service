@@ -10,7 +10,7 @@ final ArchiveName = "plantuml-service.jar"
 
 buildscript {
     // https://kotlinlang.org/
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.3.60'
     repositories {
         jcenter()
     }
