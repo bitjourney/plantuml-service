@@ -72,7 +72,7 @@ class Main {
     }
 
     private val identityJson: ByteArray = JsonObject().let { json ->
-        json.addProperty("repository", "https://github.com/bitjourney/plantuml-service")
+        json.addProperty("repository", "https://github.com/WillBooster/plantuml-service")
         json.toString().toByteArray(Charsets.UTF_8)
     }
 
