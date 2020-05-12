@@ -6,6 +6,7 @@ This is a fork version of [bitjourney/plantuml-service](https://github.com/bitjo
 
 ## License
 
+```
 Copyright (c) 2019 WillBooster, Inc.
 Copyright (c) 2016 Bit Journey, Inc.
 
@@ -20,3 +21,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
