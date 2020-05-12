@@ -1,5 +1,7 @@
 # PlantUML HTTP service
 
+![Check and build code](https://github.com/WillBooster/plantuml-service/workflows/Check%20and%20build%20code/badge.svg)
+
 This is a fork version of [bitjourney/plantuml-service](https://github.com/bitjourney/plantuml-service).
 
 ## License
