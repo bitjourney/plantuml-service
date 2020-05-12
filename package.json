@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@willbooster/renovate-config": "^3.0.0"
+  }
+}
