@@ -3,6 +3,7 @@
   "description": "An HTTP interface to PlantUML",
   "image": "heroku/java",
   "addons": [],
+  "stack": "heroku-18",
   "buildpacks": [
     {
       "url": "heroku/gradle"
