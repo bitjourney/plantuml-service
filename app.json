@@ -9,7 +9,7 @@
       "url": "heroku/gradle"
     },
     {
-      "url": "heroku/heroku-buildpack-apt"
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
     },
     {
       "url": "https://github.com/weibeld/heroku-buildpack-graphviz.git"
