@@ -9,10 +9,10 @@
       "url": "heroku/gradle"
     },
     {
-      "url": "https://github.com/heroku/heroku-buildpack-apt"
+      "url": "heroku-community/apt"
     },
     {
-      "url": "heroku-community/apt"
+      "url": "https://github.com/weibeld/heroku-buildpack-graphviz.git"
     }
   ]
 }
