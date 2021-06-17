@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@willbooster/renovate-config@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@willbooster/renovate-config/-/renovate-config-3.0.0.tgz#9730e7c634a99cd4b067fe549a99b437eddda8b6"
-  integrity sha512-uGB3CeHzphzZIABLQRQoyOpdWlXeuSArJyaGJ8Y9yggBlTPUtkJKwK+cIQgURkH5Y4/+0FWmxEgwlS/A/84l+g==
+"@willbooster/renovate-config@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@willbooster/renovate-config/-/renovate-config-6.3.0.tgz#688574b7668381cad263fec6d341cce64b986434"
+  integrity sha512-kkVrhh4xpIUbpVJ8io1cC+tSI0EQBvmqxwMCCsOVTJwPlM600O8EZJ7YWSxbm6wvKWyzV/8zgLtuUjpiFouEDQ==
