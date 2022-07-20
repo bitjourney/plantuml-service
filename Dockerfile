@@ -1,5 +1,5 @@
-# https://hub.docker.com/_/openjdk/
-FROM openjdk:8
+# https://hub.docker.com/_/eclipse-temurin?tab=description&page=2&name=17
+FROM eclipse-temurin:17
 
 ARG PLANTUML_SERVICE_VERSION
 ARG PLANTUML_SERVICE_JAR_URL="https://github.com/bitjourney/plantuml-service/releases/download/v${PLANTUML_SERVICE_VERSION}/plantuml-service.jar"
@@ -22,5 +22,5 @@ RUN useradd --create-home app \
 
 USER app
 
-ENTRYPOINT ["/usr/bin/java"]
+ENTRYPOINT ["/opt/java/openjdk/bin/java"]
 CMD ["-jar", "/home/app/plantuml-service/bin/plantuml-service.jar"]
