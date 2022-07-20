@@ -1,4 +1,4 @@
-# The Revision Histroy of plantuml-service
+# The Revision History of plantuml-service
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
