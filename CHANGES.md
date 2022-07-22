@@ -1,6 +1,14 @@
-# The Revision Histroy of plantuml-service
+# The Revision History of plantuml-service
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
+
+## v1.4.0 - 2019/03/26
+
+https://github.com/bitjourney/plantuml-service/compare/v1.3.5...v1.4.0
+
+* [#48](https://github.com/bitjourney/plantuml-service/pull/48) Bump dependencies by @slamdev
+  * Upgrade PlantUML to 1.2022.5
+  * kotlin_version to 1.6.20
 
 ## v1.3.5 - 2019/03/26
 
