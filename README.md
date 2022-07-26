@@ -109,31 +109,15 @@ Shows the version of PlantUML and plantuml-service in JSON:
 
 This is also intended to check the service helth.
 
-Example:
-
-* https://plantuml-service.herokuapp.com/version
-
 ## Development
 
 Run on local:
 
 ```sh
-./gradlew stage && heroku local:start
+./gradlew stage
 ```
 
 ## Deployment
-
-### Run on Heroku
-
-Deploy to Heroku:
-
-```sh
-# build
-./gradlew stage
-
-# run
-bin/plantuml-service $PORT
-```
 
 ### Run with systemd
 
@@ -165,12 +149,6 @@ WantedBy=multi-user.target
    - It uploads artifacts to GitHub
    - And then build the docker image and push the image to Docker Hub
 4. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
-
-## About `plantuml-service.herokuapp.com`
-
-`plantuml-service.herokuapp.com` is an example service managed by [Bit Journey, Inc.](https://github.com/bitjourney/).
-
-Because this is an example, there's no guarantee for the availability.
 
 ## See Also
 
