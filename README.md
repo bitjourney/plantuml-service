@@ -51,7 +51,7 @@ brew services start bitjourney/self/plantuml-service
 There is a docker image in [Docker Hub](https://hub.docker.com/r/bitjourney/plantuml-service/).
 
 ```sh
-docker pull bitjourney/plantuml-service
+docker pull bitjourney/plantuml-service:1.4.0
 ```
 
 ## Usage
