@@ -19,10 +19,8 @@ This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
   - [`GET /version`](#get-version)
 - [Development](#development)
 - [Deployment](#deployment)
-  - [Run on Heroku](#run-on-heroku)
   - [Run with systemd](#run-with-systemd)
 - [Release Engineering](#release-engineering)
-- [About `plantuml-service.herokuapp.com`](#about-plantuml-serviceherokuappcom)
 - [See Also](#see-also)
 - [Authors](#authors)
 - [License](#license)
@@ -51,7 +49,7 @@ brew services start bitjourney/self/plantuml-service
 There is a docker image in [Docker Hub](https://hub.docker.com/r/bitjourney/plantuml-service/).
 
 ```sh
-docker pull bitjourney/plantuml-service
+docker pull bitjourney/plantuml-service:1.4.0
 ```
 
 ## Usage
@@ -91,7 +89,7 @@ To show it in SVG:
 
 Then, you'll get:
 
-<a href="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"><img src="https://plantuml-service.herokuapp.com/svg/%40startuml%0AAlice%20-%3E%20Bob%3A%20Authentication%20Request%0ABob%20--%3E%20Alice%3A%20Authentication%20Response%0A%0AAlice%20-%3E%20Bob%3A%20Another%20authentication%20Request%0AAlice%20%3C--%20Bob%3A%20another%20authentication%20Response%0A%40enduml%0A"/></a>
+![sample](assets/sample_plantuml.svg)
 
 This path takes multiple `config` parameters to set configuration, for example:
 
@@ -109,31 +107,15 @@ Shows the version of PlantUML and plantuml-service in JSON:
 
 This is also intended to check the service helth.
 
-Example:
-
-* https://plantuml-service.herokuapp.com/version
-
 ## Development
 
 Run on local:
 
 ```sh
-./gradlew stage && heroku local:start
+./gradlew stage
 ```
 
 ## Deployment
-
-### Run on Heroku
-
-Deploy to Heroku:
-
-```sh
-# build
-./gradlew stage
-
-# run
-bin/plantuml-service $PORT
-```
 
 ### Run with systemd
 
@@ -165,12 +147,6 @@ WantedBy=multi-user.target
    - It uploads artifacts to GitHub
    - And then build the docker image and push the image to Docker Hub
 4. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
-
-## About `plantuml-service.herokuapp.com`
-
-`plantuml-service.herokuapp.com` is an example service managed by [Bit Journey, Inc.](https://github.com/bitjourney/).
-
-Because this is an example, there's no guarantee for the availability.
 
 ## See Also
 
