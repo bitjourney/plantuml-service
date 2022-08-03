@@ -35,7 +35,7 @@ dependencies {
     implementation "org.slf4j:slf4j-simple:1.7.21"
     implementation "com.google.code.gson:gson:2.9.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.6.2'
 }
 repositories {
