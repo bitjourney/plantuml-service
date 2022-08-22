@@ -32,7 +32,7 @@ dependencies {
     implementation "net.sourceforge.plantuml:plantuml:$PlantUmlVersion"
     implementation "com.sparkjava:spark-core:2.9.3"
     implementation "com.github.ben-manes.caffeine:caffeine:2.9.3"
-    implementation "org.slf4j:slf4j-simple:1.7.21"
+    implementation "org.slf4j:slf4j-simple:2.0.0"
     implementation "com.google.code.gson:gson:2.9.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation 'junit:junit:4.12'
