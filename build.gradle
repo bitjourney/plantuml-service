@@ -3,8 +3,10 @@ version '1.4.0'
 
 final MainClassName = "${group}.Main"
 
-// See http://plantuml.com/changes
-final PlantUmlVersion = "1.2022.5"
+// See
+// http://plantuml.com/changes
+// https://search.maven.org/artifact/net.sourceforge.plantuml/plantuml
+final PlantUmlVersion = "1.2022.6"
 
 final ArchiveName = "plantuml-service.jar"
 
