@@ -3,14 +3,16 @@ version '1.4.0'
 
 final MainClassName = "${group}.Main"
 
-// See http://plantuml.com/changes
-final PlantUmlVersion = "1.2022.5"
+// See
+// http://plantuml.com/changes
+// https://search.maven.org/artifact/net.sourceforge.plantuml/plantuml
+final PlantUmlVersion = "1.2022.6"
 
 final ArchiveName = "plantuml-service.jar"
 
 buildscript {
     // https://kotlinlang.org/
-    ext.kotlin_version = '1.6.20'
+    ext.kotlin_version = '1.7.10'
     repositories {
         mavenCentral()
     }
@@ -31,11 +33,11 @@ compileTestKotlin {
 dependencies {
     implementation "net.sourceforge.plantuml:plantuml:$PlantUmlVersion"
     implementation "com.sparkjava:spark-core:2.9.3"
-    implementation "com.github.ben-manes.caffeine:caffeine:2.9.3"
-    implementation "org.slf4j:slf4j-simple:1.7.21"
-    implementation "com.google.code.gson:gson:2.9.0"
+    implementation "org.slf4j:slf4j-simple:2.0.0"
+    implementation "com.google.code.gson:gson:2.9.1"
+    implementation "com.github.ben-manes.caffeine:caffeine:3.1.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.6.2'
 }
 repositories {
