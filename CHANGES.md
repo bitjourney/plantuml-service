@@ -2,7 +2,14 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
-## v1.4.0 - 2019/03/26
+## v1.4.1 - 2022/08/23
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.0...v1.4.1
+
+* Upgrade PlantUML to 1.2022.6
+* Upgrade packages
+
+## v1.4.0 - 2022/07/22
 
 https://github.com/bitjourney/plantuml-service/compare/v1.3.5...v1.4.0
 
