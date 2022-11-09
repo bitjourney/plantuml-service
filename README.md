@@ -11,7 +11,6 @@ This is a high-performance HTTP interface to [PlantUML](http://plantuml.com/).
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
   - [Jar](#jar)
-  - [Homebrew Tap](#homebrew-tap)
   - [Docker](#docker)
 - [Usage](#usage)
   - [`POST /svg` where `body` is the source of PlantUML](#post-svg-where-body-is-the-source-of-plantuml)
@@ -34,15 +33,6 @@ There's two way to install plantuml-service:
 ### Jar
 
 Get `plantuml-service.jar` from [GitHub releases](https://github.com/bitjourney/plantuml-service/releases).
-
-### Homebrew Tap
-
-There is a homebrew formula in [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self) for macOS:
-
-```sh
-brew install bitjourney/self/plantuml-service
-brew services start bitjourney/self/plantuml-service
-```
 
 ### Docker
 
@@ -146,7 +136,6 @@ WantedBy=multi-user.target
 3. Run `./gradlew release`
    - It uploads artifacts to GitHub
    - And then build the docker image and push the image to Docker Hub
-4. Update the homebrew fomula (see [bitjourney/homebrew-self](https://github.com/bitjourney/homebrew-self))
 
 ## See Also
 
