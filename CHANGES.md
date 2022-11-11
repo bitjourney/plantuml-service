@@ -2,6 +2,12 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
+## v1.4.4 - 2022/11/31
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.3...v1.4.4
+
+* Upgrade base image
+
 ## v1.4.3 - 2022/10/31
 
 https://github.com/bitjourney/plantuml-service/compare/v1.4.2...v1.4.3
