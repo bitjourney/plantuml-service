@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/eclipse-temurin?tab=description&page=2&name=17
-FROM eclipse-temurin:17
+FROM eclipse-temurin:17.0.5_8-jdk-jammy
 
 ARG PLANTUML_SERVICE_VERSION
 ARG PLANTUML_SERVICE_JAR_URL="https://github.com/bitjourney/plantuml-service/releases/download/v${PLANTUML_SERVICE_VERSION}/plantuml-service.jar"
