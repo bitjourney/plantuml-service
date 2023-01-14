@@ -3,6 +3,7 @@ version '1.4.4'
 
 final MainClassName = "${group}.Main"
 
+
 // See
 // http://plantuml.com/changes
 // https://search.maven.org/artifact/net.sourceforge.plantuml/plantuml

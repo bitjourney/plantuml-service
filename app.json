@@ -3,7 +3,7 @@
   "description": "An HTTP interface to PlantUML",
   "image": "heroku/java",
   "addons": [],
-  "stack": "heroku-18",
+  "stack": "heroku-20",
   "buildpacks": [
     {
       "url": "heroku/gradle"
@@ -14,5 +14,8 @@
     {
       "url": "https://github.com/weibeld/heroku-buildpack-graphviz.git"
     }
-  ]
+  ],
+  "scripts": {
+    "postdeploy": "fc-cache -fv"
+  }
 }
