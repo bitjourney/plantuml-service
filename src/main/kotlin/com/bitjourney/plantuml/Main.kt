@@ -177,10 +177,14 @@ class Main {
             throw AssertionError("No GraphViz dot found in the PATH.")
         }
 
-        val messages = arrayListOf<String>();
-        GraphvizUtils.addDotStatus(messages, false);
-        messages.forEach { message ->
-            logger.info(message)
+        val result: List<String> = ArrayList()
+        val errorCode = GraphvizUtils.addDotStatus(result, false)
+        for (s in result) {
+            if (errorCode == 0) {
+                logger.info(s)
+            } else {
+                logger.error(s)
+            }
         }
     }
 }

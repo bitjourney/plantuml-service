@@ -1,6 +1,40 @@
-# The Revision Histroy of plantuml-service
+# The Revision History of plantuml-service
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
+
+## v1.4.4 - 2022/11/31
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.3...v1.4.4
+
+* Upgrade base image
+
+## v1.4.3 - 2022/10/31
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.2...v1.4.3
+
+* Upgrade PlantUML to 1.2022.12
+* Upgrade packages
+
+## v1.4.2 - 2022/08/23
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.1...v1.4.2
+
+* Upgrade packages
+
+## v1.4.1 - 2022/08/23
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.0...v1.4.1
+
+* Upgrade PlantUML to 1.2022.6
+* Upgrade packages
+
+## v1.4.0 - 2022/07/22
+
+https://github.com/bitjourney/plantuml-service/compare/v1.3.5...v1.4.0
+
+* [#48](https://github.com/bitjourney/plantuml-service/pull/48) Bump dependencies by @slamdev
+  * Upgrade PlantUML to 1.2022.5
+  * kotlin_version to 1.6.20
 
 ## v1.3.5 - 2019/03/26
 
