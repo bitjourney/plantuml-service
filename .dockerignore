@@ -1,0 +1,7 @@
+.idea
+build
+.gradle
+gradle.properties
+bin/*.jar
+**/out
+**/node_modules

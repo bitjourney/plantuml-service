@@ -1,24 +1,29 @@
 # https://hub.docker.com/_/eclipse-temurin?tab=description&page=2&name=17
-FROM eclipse-temurin:17.0.5_8-jdk-jammy
+FROM eclipse-temurin:17.0.5_8-jdk-jammy AS builder
 
-ARG PLANTUML_SERVICE_VERSION
-ARG PLANTUML_SERVICE_JAR_URL="https://github.com/bitjourney/plantuml-service/releases/download/v${PLANTUML_SERVICE_VERSION}/plantuml-service.jar"
+ADD . /work
+
+WORKDIR /work
+
+RUN ./gradlew build
+
+FROM eclipse-temurin:17.0.5_8-jdk-jammy AS runner
+
 ARG PLANTUML_SERVICE_BIN_DIR="/home/app/plantuml-service/bin"
 ARG PLANTUML_SERVICE_PATH="${PLANTUML_SERVICE_BIN_DIR}/plantuml-service.jar"
-
-RUN echo "${PLANTUML_SERVICE_VERSION?:--build-arg PLANTUML_SERVICE_VERSION=version is mandatory}"
 
 USER root
 
 RUN useradd --create-home app \
   && apt-get update -qq \
   && apt-get upgrade -y \
-  && apt-get install -y graphviz fonts-takao curl \
+  && apt-get install -y graphviz fonts-takao \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir -p ${PLANTUML_SERVICE_BIN_DIR} \
-  && curl -L ${PLANTUML_SERVICE_JAR_URL} -o ${PLANTUML_SERVICE_PATH} \
   && chown -R app ${PLANTUML_SERVICE_BIN_DIR}
+
+COPY --from=builder "/work/build/libs/plantuml-service.jar" ${PLANTUML_SERVICE_BIN_DIR}
 
 USER app
 
