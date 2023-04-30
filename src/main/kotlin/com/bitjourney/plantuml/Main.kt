@@ -6,7 +6,7 @@ import com.google.gson.JsonObject
 import net.sourceforge.plantuml.Option
 import net.sourceforge.plantuml.SourceStringReader
 import net.sourceforge.plantuml.code.TranscoderSmart
-import net.sourceforge.plantuml.cucadiagram.dot.GraphvizUtils
+import net.sourceforge.plantuml.dot.GraphvizUtils
 import org.slf4j.LoggerFactory
 import spark.Filter
 import spark.Response
