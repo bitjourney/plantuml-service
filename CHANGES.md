@@ -2,6 +2,10 @@
 
 See also PlantUML change logs for its updates: http://plantuml.com/changes
 
+## v1.4.6 - 2023/09/12
+
+https://github.com/bitjourney/plantuml-service/compare/v1.4.6...v1.4.7
+
 ## v1.4.6 - 2023/06/05
 
 https://github.com/bitjourney/plantuml-service/compare/v1.4.5...v1.4.6
