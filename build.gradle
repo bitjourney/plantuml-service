@@ -12,7 +12,7 @@ final ArchiveName = "plantuml-service.jar"
 
 buildscript {
     // https://kotlinlang.org/
-    ext.kotlin_version = '1.9.22'
+    ext.kotlin_version = '1.9.23'
     repositories {
         mavenCentral()
     }
