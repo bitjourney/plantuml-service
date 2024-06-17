@@ -36,10 +36,10 @@ Get `plantuml-service.jar` from [GitHub releases](https://github.com/bitjourney/
 
 ### Docker
 
-There is a docker image in [Docker Hub](https://hub.docker.com/r/bitjourney/plantuml-service/).
+There is a docker image in [GitHub Container Registry](https://github.com/orgs/bitjourney/packages/container/package/plantuml-service).
 
 ```sh
-docker pull bitjourney/plantuml-service:1.4.0
+docker pull ghcr.io/bitjourney/plantuml-service:1.4.11
 ```
 
 ## Usage
