@@ -49,10 +49,10 @@ task('release', dependsOn: stage) {
 
         release.uploadAsset(ext.artifactFile, ext.artifactContentType)
 
-        final dockerTag = "${ext.githubOwner}/${ext.githubRepo}:${version}"
+        final dockerTag = "ghcr.io/${ext.githubOwner}/${ext.githubRepo}:${version}"
 
         shell("docker --version")
-        shell("docker login")
+        shell("docker login ghcr.io")
         shell("docker build -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
         shell("docker push ${dockerTag}")
 
