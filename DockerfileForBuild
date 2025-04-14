@@ -1,0 +1,24 @@
+# Build-only environment for plantuml-service
+# Usage:
+# 1. Build the image: docker build -f DockerfileForBuild -t plantuml-service-builder .
+# 2. Run the container to build: docker run --rm -v $(pwd):/app plantuml-service-builder ./gradlew stage
+# The built JAR will be available in the ./bin directory
+
+FROM eclipse-temurin:17.0.5_8-jdk-jammy
+
+RUN apt-get update -qq \
+    && apt-get upgrade -y \
+    && apt-get install -y curl unzip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY gradlew ./
+COPY gradle ./gradle
+
+RUN chmod +x ./gradlew
+
+COPY build.gradle settings.gradle release.gradle ./
+
+COPY src ./src
