@@ -105,6 +105,15 @@ Run on local:
 ./gradlew stage
 ```
 
+Run on docker:
+
+```sh
+docker build -f DockerfileForBuild -t plantuml-service-builder .
+docker run --rm -v $(pwd):/app plantuml-service-builder ./gradlew stage
+```
+
+The built JAR will be available in the ./bin directory
+
 ## Deployment
 
 ### Run with systemd
