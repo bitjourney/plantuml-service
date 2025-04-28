@@ -1,11 +1,11 @@
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         // http://github-api.kohsuke.org/
-        classpath "org.kohsuke:github-api:1.79"
+        classpath "org.kohsuke:github-api:1.314"
     }
 }
 
