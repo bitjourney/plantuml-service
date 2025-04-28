@@ -53,7 +53,7 @@ task('release', dependsOn: stage) {
 
         shell("docker --version")
         shell("docker login ghcr.io")
-        shell("docker build -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
+        shell("docker buildx build --platform linux/amd64 -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
         shell("docker push ${dockerTag}")
 
         println release.getHtmlUrl()
