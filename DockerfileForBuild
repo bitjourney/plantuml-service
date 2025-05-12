@@ -4,7 +4,7 @@
 # 2. Run the container to build: docker run --rm -v $(pwd):/app plantuml-service-builder ./gradlew stage
 # The built JAR will be available in the ./bin directory
 
-FROM eclipse-temurin:17.0.5_8-jdk-jammy
+FROM eclipse-temurin:17.0.15_6-jdk-jammy
 
 RUN apt-get update -qq \
     && apt-get upgrade -y \
