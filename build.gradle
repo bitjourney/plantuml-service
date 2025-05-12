@@ -1,5 +1,5 @@
 group 'com.bitjourney.plantuml'
-version '1.4.16'
+version '1.4.17'
 
 final MainClassName = "${group}.Main"
 
