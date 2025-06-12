@@ -7,6 +7,8 @@ import net.sourceforge.plantuml.Option
 import net.sourceforge.plantuml.SourceStringReader
 import net.sourceforge.plantuml.code.TranscoderSmart
 import net.sourceforge.plantuml.dot.GraphvizUtils
+import net.sourceforge.plantuml.dot.GraphvizRuntimeEnvironment;
+import net.sourceforge.plantuml.crash.ReportLog;
 import org.slf4j.LoggerFactory
 import spark.Filter
 import spark.Response
@@ -87,7 +89,7 @@ class Main {
 
     fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
-            GraphvizUtils.setDotExecutable(path.toString())
+            GraphvizRuntimeEnvironment.getInstance().setDotExecutable(path.toString())
         }
     }
 
@@ -171,13 +173,13 @@ class Main {
     fun checkTools(graphvizDot: Path?) {
         installGraphvizDotExecutable(graphvizDot)
 
-        val version = GraphvizUtils.getDotVersion()
+        val version = GraphvizRuntimeEnvironment.getInstance().getDotVersion();
 
         if (version == -1) {
             throw AssertionError("No GraphViz dot found in the PATH.")
         }
 
-        val result: List<String> = ArrayList()
+        val result = ReportLog()
         val errorCode = GraphvizUtils.addDotStatus(result, false)
         for (s in result) {
             if (errorCode == 0) {
