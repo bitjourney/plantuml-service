@@ -1,0 +1,20 @@
+Looking for Graphviz creation methods...
+
+GraphvizUtils static methods:
+  static getTestCreateSimpleFile() -> String
+  static removeLocalLimitSize() -> void
+  static setLocalImageLimit(int) -> void
+  static getenvImageLimit() -> int
+  static getenvDefaultConfigFilename() -> String
+  static getenvLogData() -> String
+  static addDotStatus(ReportLog, boolean) -> int
+Class not found: net.sourceforge.plantuml.dot.GraphvizMaker
+Class not found: net.sourceforge.plantuml.dot.DotExecutor
+Class not found: net.sourceforge.plantuml.dot.GraphvizCmdLine
+Class not found: net.sourceforge.plantuml.dot.DotRenderer
+
+Found class: net.sourceforge.plantuml.security.SecurityProfile
+  static values() -> SecurityProfile[]
+  static valueOf(String) -> SecurityProfile
+  static init() -> SecurityProfile
+  static $values() -> SecurityProfile[]

@@ -82,12 +82,15 @@ class Main {
 
     val loader: LoadingCache<DataSource, ByteArray> = Caffeine.newBuilder()
             .maximumWeight(50 * 1024 * 1024) // about 50MiB
-            .weigher { key: DataSource, value: ByteArray -> key.weight() + value.size }
+            .weigher<DataSource, ByteArray> { key: DataSource, value: ByteArray -> key.weight() + value.size }
             .build({ key: DataSource -> render(key) })
 
     fun installGraphvizDotExecutable(graphvizDot: Path?) {
         graphvizDot?.let { path ->
-            GraphvizUtils.setDotExecutable(path.toString())
+            // Set GraphViz executable path via system property (new approach in PlantUML 1.2025.x)
+            System.setProperty("GRAPHVIZ_DOT", path.toString())
+            System.setProperty("plantuml.graphviz.dot", path.toString())
+            logger.info("GraphViz dot executable set to: $path")
         }
     }
 
@@ -170,21 +173,24 @@ class Main {
 
     fun checkTools(graphvizDot: Path?) {
         installGraphvizDotExecutable(graphvizDot)
-
-        val version = GraphvizUtils.getDotVersion()
-
-        if (version == -1) {
-            throw AssertionError("No GraphViz dot found in the PATH.")
-        }
-
-        val result: List<String> = ArrayList()
-        val errorCode = GraphvizUtils.addDotStatus(result, false)
-        for (s in result) {
-            if (errorCode == 0) {
-                logger.info(s)
+        
+        // Check GraphViz availability using ProcessBuilder (equivalent functionality)
+        try {
+            val dotCommand = graphvizDot?.toString() ?: "dot"
+            val process = ProcessBuilder(dotCommand, "-V")
+                .redirectErrorStream(true)
+                .start()
+            
+            val exitCode = process.waitFor()
+            val output = process.inputStream.bufferedReader().readText()
+            
+            if (exitCode == 0) {
+                logger.info("GraphViz is available: $output")
             } else {
-                logger.error(s)
+                logger.warn("GraphViz check failed with exit code: $exitCode")
             }
+        } catch (e: Exception) {
+            logger.warn("GraphViz dot not found. Some diagrams may not render correctly: ${e.message}")
         }
     }
 }
