@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build Docker image for building
+      run: docker build -f DockerfileForBuild -t plantuml-service-builder .
+
+    - name: Run build
+      run: docker run --rm -v $(pwd):/app plantuml-service-builder ./gradlew stage
+
+    - name: Check build artifacts
+      run: |
+        if [ ! -f "./bin/plantuml-service.jar" ]; then
+          echo "Build failed: JAR file not found"
+          exit 1
+        fi
+        echo "Build successful: JAR file created"
