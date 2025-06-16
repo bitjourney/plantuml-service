@@ -22,11 +22,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup GitHub credentials
-      run: |
-        mkdir -p ~/.github
-        echo "Setting up GitHub credentials for release"
-
     - name: Build Docker image for building
       run: docker build -f DockerfileForBuild -t plantuml-service-builder .
 
