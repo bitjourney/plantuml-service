@@ -52,7 +52,16 @@ task('release', dependsOn: stage) {
         final dockerTag = "ghcr.io/${ext.githubOwner}/${ext.githubRepo}:${version}"
 
         shell("docker --version")
-        shell("docker login ghcr.io")
+
+        // Use GITHUB_TOKEN for docker login
+        def githubToken = System.getenv("GITHUB_TOKEN")
+        if (!githubToken) {
+            throw new RuntimeException("GITHUB_TOKEN environment variable is not set")
+        }
+
+        // Login to ghcr.io using token
+        shell("echo ${githubToken} | docker login ghcr.io -u ${ext.githubOwner} --password-stdin")
+
         shell("docker buildx build --platform linux/amd64 -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
         shell("docker push ${dockerTag}")
 
