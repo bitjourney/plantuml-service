@@ -60,7 +60,9 @@ task('release', dependsOn: stage) {
         }
 
         // Login to ghcr.io using token
-        shell("echo ${githubToken} | docker login ghcr.io -u ${ext.githubOwner} --password-stdin")
+        // For GitHub Actions, we need to use the actor name from environment variable
+        def githubActor = System.getenv("GITHUB_ACTOR") ?: ext.githubOwner
+        shell("echo ${githubToken} | docker login ghcr.io -u ${githubActor} --password-stdin")
 
         shell("docker buildx build --platform linux/amd64 -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
         shell("docker push ${dockerTag}")
