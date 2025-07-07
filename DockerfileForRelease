@@ -13,20 +13,7 @@ RUN apt-get update -qq \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install GitHub CLI for release operations
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    && apt-get update \
-    && apt-get install gh -y
-
-# Install Docker CLI for building and pushing images
-RUN curl -fsSL https://get.docker.com | sh
-
-# Install Docker Buildx plugin
-RUN mkdir -p ~/.docker/cli-plugins && \
-    curl -fsSL "https://github.com/docker/buildx/releases/download/v0.11.2/buildx-v0.11.2.linux-amd64" -o ~/.docker/cli-plugins/docker-buildx && \
-    chmod +x ~/.docker/cli-plugins/docker-buildx
+# No need for GitHub CLI or Docker CLI since we're not building Docker images inside this container
 
 WORKDIR /app
 
@@ -42,7 +29,6 @@ COPY build.gradle settings.gradle release.gradle ./
 COPY src ./src
 
 # Set up environment
-ENV DOCKER_BUILDKIT=1
 ENV HOME=/root
 
 # Create .github directory for GitHub token
