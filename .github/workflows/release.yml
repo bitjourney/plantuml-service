@@ -49,4 +49,7 @@ jobs:
     - name: Run release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./gradlew release
+        GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
+      run: |
+        mkdir -p .gradle
+        ./gradlew release
