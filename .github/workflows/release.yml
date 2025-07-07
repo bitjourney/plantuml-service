@@ -51,6 +51,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         docker run --rm \
+          -e GITHUB_OAUTH=$GITHUB_TOKEN \
           -e GITHUB_TOKEN=$GITHUB_TOKEN \
           -v $(pwd):/app \
           plantuml-service-releaser ./gradlew release
