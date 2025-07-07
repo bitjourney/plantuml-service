@@ -46,10 +46,16 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@d70bba72b1f3fd22344832f00baa16ece964efeb # v3.3.0
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@ac638b010cf58a27ee6c972d7336334ccaf61c96 # v4.4.1
+    - name: Build Docker image for release
+      run: docker build -f DockerfileForRelease -t plantuml-service-releaser .
 
-    - name: Run release
+    - name: Run release with Docker
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./gradlew release
+      run: |
+        docker run --rm \
+          -e GITHUB_TOKEN=$GITHUB_TOKEN \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v $(pwd):/app \
+          --network host \
+          plantuml-service-releaser ./gradlew release
