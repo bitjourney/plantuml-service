@@ -49,24 +49,6 @@ task('release', dependsOn: stage) {
 
         release.uploadAsset(ext.artifactFile, ext.artifactContentType)
 
-        final dockerTag = "ghcr.io/${ext.githubOwner}/${ext.githubRepo}:${version}"
-
-        shell("docker --version")
-
-        // Use GITHUB_TOKEN for docker login
-        def githubToken = System.getenv("GITHUB_TOKEN")
-        if (!githubToken) {
-            throw new RuntimeException("GITHUB_TOKEN environment variable is not set")
-        }
-
-        // Login to ghcr.io using token
-        // For GitHub Actions, we need to use the actor name from environment variable
-        def githubActor = System.getenv("GITHUB_ACTOR") ?: ext.githubOwner
-        shell("echo ${githubToken} | docker login ghcr.io -u ${githubActor} --password-stdin")
-
-        shell("docker buildx build --platform linux/amd64 -t ${dockerTag} --build-arg PLANTUML_SERVICE_VERSION=${version} .")
-        shell("docker push ${dockerTag}")
-
         println release.getHtmlUrl()
     }
 }

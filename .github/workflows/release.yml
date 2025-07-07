@@ -36,6 +36,18 @@ jobs:
         fi
         echo "Build successful: JAR file created"
 
+    - name: Get version from build.gradle
+      id: get_version
+      run: |
+        VERSION=$(grep "^version " build.gradle | cut -d "'" -f 2)
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Release version: $VERSION"
+
+    - name: Create GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./gradlew release
+
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3.2.0
       with:
@@ -46,19 +58,12 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@d70bba72b1f3fd22344832f00baa16ece964efeb # v3.3.0
 
-    - name: Build Docker image for release
-      run: docker build -f DockerfileForRelease -t plantuml-service-releaser .
-
-    - name: Run release with Docker
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_ACTOR: ${{ github.actor }}
-      run: |
-        docker run --rm \
-          -e GITHUB_OAUTH=$GITHUB_TOKEN \
-          -e GITHUB_TOKEN=$GITHUB_TOKEN \
-          -e GITHUB_ACTOR=$GITHUB_ACTOR \
-          -v /var/run/docker.sock:/var/run/docker.sock \
-          -v $(pwd):/app \
-          --network host \
-          plantuml-service-releaser ./gradlew release
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        platforms: linux/amd64
+        tags: ghcr.io/bitjourney/plantuml-service:${{ steps.get_version.outputs.version }}
+        build-args: |
+          PLANTUML_SERVICE_VERSION=${{ steps.get_version.outputs.version }}
