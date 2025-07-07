@@ -52,10 +52,12 @@ jobs:
     - name: Run release with Docker
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
       run: |
         docker run --rm \
           -e GITHUB_OAUTH=$GITHUB_TOKEN \
           -e GITHUB_TOKEN=$GITHUB_TOKEN \
+          -e GITHUB_ACTOR=$GITHUB_ACTOR \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v $(pwd):/app \
           --network host \
