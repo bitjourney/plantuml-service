@@ -1,0 +1,51 @@
+# Release environment for plantuml-service
+# This Dockerfile is used in GitHub Actions to create releases
+# Usage:
+# docker build -f DockerfileForRelease -t plantuml-service-releaser .
+# docker run --rm -e GITHUB_TOKEN=$GITHUB_TOKEN -v $(pwd):/app plantuml-service-releaser
+
+FROM eclipse-temurin:17.0.15_6-jdk-jammy
+
+# Install required tools
+RUN apt-get update -qq \
+    && apt-get upgrade -y \
+    && apt-get install -y curl unzip git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install GitHub CLI for release operations
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt-get update \
+    && apt-get install gh -y
+
+# Install Docker CLI for building and pushing images
+RUN curl -fsSL https://get.docker.com | sh
+
+WORKDIR /app
+
+# Copy gradle wrapper
+COPY gradlew ./
+COPY gradle ./gradle
+RUN chmod +x ./gradlew
+
+# Copy build files
+COPY build.gradle settings.gradle release.gradle ./
+
+# Copy source files
+COPY src ./src
+
+# Set up environment
+ENV DOCKER_BUILDKIT=1
+ENV HOME=/root
+
+# Create .github directory for GitHub token
+RUN mkdir -p /root/.github
+
+# Configure git
+RUN git config --global user.email "actions@github.com" && \
+    git config --global user.name "GitHub Actions"
+
+# Set default command
+CMD ["/bin/bash", "-c", "if [ -z \"$GITHUB_TOKEN\" ]; then echo 'Error: GITHUB_TOKEN environment variable is not set' && exit 1; fi"]
