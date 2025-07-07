@@ -26,7 +26,7 @@ jobs:
       run: docker build -f DockerfileForBuild -t plantuml-service-builder .
 
     - name: Run build
-      run: docker run --rm -v $(pwd):/app plantuml-service-builder ./gradlew stage
+      run: docker run --rm -v $(pwd):/app -e GRADLE_USER_HOME=/app/.gradle plantuml-service-builder ./gradlew stage
 
     - name: Check build artifacts
       run: |
@@ -52,4 +52,5 @@ jobs:
         GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
       run: |
         mkdir -p .gradle
+        chmod -R 755 .gradle
         ./gradlew release
