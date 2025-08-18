@@ -38,7 +38,7 @@ dependencies {
     implementation "com.github.ben-manes.caffeine:caffeine:3.2.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testImplementation 'org.assertj:assertj-core:3.27.4'
 }
 repositories {
     mavenCentral()
