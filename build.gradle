@@ -6,7 +6,7 @@ final MainClassName = "${group}.Main"
 // See
 // http://plantuml.com/changes
 // https://search.maven.org/artifact/net.sourceforge.plantuml/plantuml
-final PlantUmlVersion = "1.2025.4"
+final PlantUmlVersion = "1.2025.7"
 
 final ArchiveName = "plantuml-service.jar"
 
