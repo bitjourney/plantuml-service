@@ -3,7 +3,8 @@ package com.bitjourney.plantuml
 import com.github.benmanes.caffeine.cache.Caffeine
 import com.github.benmanes.caffeine.cache.LoadingCache
 import com.google.gson.JsonObject
-import net.sourceforge.plantuml.Option
+import net.sourceforge.plantuml.FileFormat
+import net.sourceforge.plantuml.FileFormatOption
 import net.sourceforge.plantuml.SourceStringReader
 import net.sourceforge.plantuml.code.TranscoderSmart
 import net.sourceforge.plantuml.dot.GraphvizUtils
@@ -80,7 +81,7 @@ class Main {
 
     // NOTE: Remove "skinparam monochrome true" for a while because it lets "SALT" to cause errors :(
     //val defaultConfig: List<String> = Arrays.asList()
-    val option = Option("-tsvg")
+    val fileFormat = FileFormat.SVG
 
     val loader: LoadingCache<DataSource, ByteArray> = Caffeine.newBuilder()
             .maximumWeight(50 * 1024 * 1024) // about 50MiB
@@ -150,15 +151,15 @@ class Main {
     fun renderToResponse(source: String, response: Response) {
         response.type("image/svg+xml")
 
-        val svg = loader.get(DataSource(source, option))!!
+        val svg = loader.get(DataSource(source, fileFormat))!!
         response.header("Content-Length", svg.size.toString())
         response.raw().outputStream.write(svg)
     }
 
     fun render(data: DataSource): ByteArray {
-        val renderer = SourceStringReader(data.option.defaultDefines, data.source, data.option.config)
+        val renderer = SourceStringReader(data.source)
         val outputStream = ByteArrayOutputStream()
-        renderer.outputImage(outputStream, data.option.fileFormatOption)
+        renderer.outputImage(outputStream, FileFormatOption(data.fileFormat))
         return outputStream.toByteArray()
     }
 
