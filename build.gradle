@@ -45,7 +45,7 @@ repositories {
 }
 
 jar {
-    archiveName ArchiveName
+    archiveFileName.set(ArchiveName)
     manifest {
         attributes(
                 "Main-Class": MainClassName,
