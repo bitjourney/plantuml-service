@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "packages": {
+    ".": {
+      "changelog-path": "CHANGELOG.md",
+      "release-type": "simple",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "build.gradle",
+          "glob": false
+        }
+      ],
+      "pull-request-title-pattern": "chore: release ${version}",
+      "pull-request-header": "## リリース準備\n\nこのPRをマージすると、新しいバージョンがリリースされます。",
+      "include-component-in-tag": false
+    }
+  },
+  "changelog-sections": [
+    {"type": "feat", "section": "Features"},
+    {"type": "fix", "section": "Bug Fixes"},
+    {"type": "perf", "section": "Performance Improvements"},
+    {"type": "deps", "section": "Dependencies"},
+    {"type": "chore", "section": "Miscellaneous", "hidden": false},
+    {"type": "docs", "section": "Documentation", "hidden": true},
+    {"type": "style", "section": "Styles", "hidden": true},
+    {"type": "refactor", "section": "Code Refactoring", "hidden": true},
+    {"type": "test", "section": "Tests", "hidden": true},
+    {"type": "build", "section": "Build System", "hidden": true},
+    {"type": "ci", "section": "Continuous Integration", "hidden": true}
+  ]
+}
