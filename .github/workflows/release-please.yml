@@ -1,0 +1,30 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # GitHubリリースの作成はgradleに任せる
+          skip-github-release: true
+
+      # リリースPRがマージされたら、既存のReleaseワークフローを実行
+      - name: Trigger Release workflow
+        if: ${{ steps.release.outputs.releases_created }}
+        run: gh workflow run release.yml --ref master
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
