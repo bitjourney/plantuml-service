@@ -15,7 +15,7 @@
         }
       ],
       "pull-request-title-pattern": "chore: release ${version}",
-      "pull-request-header": "## リリース準備\n\nこのPRをマージすると、新しいバージョンがリリースされます。",
+      "pull-request-header": "## Release Preparation\n\nMerging this PR will trigger a new release.",
       "include-component-in-tag": false
     }
   },
