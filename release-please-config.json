@@ -5,6 +5,7 @@
     ".": {
       "changelog-path": "CHANGELOG.md",
       "release-type": "simple",
+      "versioning": "always-patch",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "extra-files": [
