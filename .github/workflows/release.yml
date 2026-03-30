@@ -1,10 +1,6 @@
 name: Release
 
 on:
-  # リリースPRがマージされてGitHubリリースが作成されたときに自動実行
-  release:
-    types: [published]
-  # 手動実行も引き続き可能
   workflow_dispatch:
 
 permissions:
@@ -51,8 +47,6 @@ jobs:
       run: docker build -f DockerfileForRelease -t plantuml-service-releaser .
 
     - name: Create GitHub Release with Docker
-      # release イベントの場合はRelease Pleaseが既にリリースを作成済みなのでスキップ
-      if: github.event_name == 'workflow_dispatch'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -61,14 +55,6 @@ jobs:
           -e GITHUB_TOKEN=$GITHUB_TOKEN \
           -v $(pwd):/app \
           plantuml-service-releaser ./gradlew release
-
-    - name: Upload JAR to GitHub Release
-      # release イベントの場合のみJARをアップロード
-      if: github.event_name == 'release'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        gh release upload "${{ github.event.release.tag_name }}" ./bin/plantuml-service.jar --clobber
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v3
