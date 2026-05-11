@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.4.28](https://github.com/bitjourney/plantuml-service/compare/v1.4.27...v1.4.28) (2026-05-11)
+
+
+### Bug Fixes
+
+* release-pleaseがリリースPRを作成できるように修正 ([055d7a9](https://github.com/bitjourney/plantuml-service/commit/055d7a9c4c69b6bd67dbe69aba7008234f43c8e5))
+* release-pleaseがリリースPRを作成できるように修正 ([cc2b0d8](https://github.com/bitjourney/plantuml-service/commit/cc2b0d8c540c3de282366bcae524982da2fb1df3))
+
+
+### Miscellaneous
+
+* **deps:** bump com.github.ben-manes.caffeine:caffeine ([8423527](https://github.com/bitjourney/plantuml-service/commit/84235278566cee3fdfa3b3e30235b247b7b1b3ac))
+* **deps:** bump com.github.ben-manes.caffeine:caffeine from 3.2.3 to 3.2.4 ([f49b9bb](https://github.com/bitjourney/plantuml-service/commit/f49b9bb688a7bd378326863a5f59ef8e0f0d2d4d))
+* **deps:** bump com.google.code.gson:gson from 2.13.2 to 2.14.0 ([7eac1d9](https://github.com/bitjourney/plantuml-service/commit/7eac1d963300b672cf7e1736d69246516ded6615))
+* **deps:** bump com.google.code.gson:gson from 2.13.2 to 2.14.0 ([48648f1](https://github.com/bitjourney/plantuml-service/commit/48648f1b66ad100b2ec47c8dc8fa48f7fc060db1))
+* **deps:** bump gradle-wrapper from 9.4.1 to 9.5.0 ([5ea5549](https://github.com/bitjourney/plantuml-service/commit/5ea55490ce2052b970fbf08999d07077b86188a2))
+* **deps:** bump gradle-wrapper from 9.4.1 to 9.5.0 ([e42f179](https://github.com/bitjourney/plantuml-service/commit/e42f1797e1f4ce1149f51d2864f47cfe283bfa45))
+* **deps:** bump kotlin_version from 2.3.20 to 2.3.21 ([fd926ae](https://github.com/bitjourney/plantuml-service/commit/fd926ae861fd08bd85532deb8d99414cb4acc6af))
+* **deps:** bump kotlin_version from 2.3.20 to 2.3.21 ([72427ad](https://github.com/bitjourney/plantuml-service/commit/72427ad3613997c46323d3796f17760dd1c5c871))
+
 ## [1.4.27](https://github.com/bitjourney/plantuml-service/compare/v1.4.26...v1.4.27) (2026-03-30)
 
 
