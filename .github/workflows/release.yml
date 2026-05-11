@@ -43,18 +43,12 @@ jobs:
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "Release version: $VERSION"
 
-    - name: Build Docker image for release
-      run: docker build -f DockerfileForRelease -t plantuml-service-releaser .
-
-    - name: Create GitHub Release with Docker
+    - name: Upload JAR to GitHub Release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        docker run --rm \
-          -e GITHUB_OAUTH=$GITHUB_TOKEN \
-          -e GITHUB_TOKEN=$GITHUB_TOKEN \
-          -v $(pwd):/app \
-          plantuml-service-releaser ./gradlew release
+        VERSION=$(grep "^version " build.gradle | cut -d "'" -f 2)
+        gh release upload "v${VERSION}" ./bin/plantuml-service.jar --clobber
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
