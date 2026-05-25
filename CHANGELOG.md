@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.29](https://github.com/bitjourney/plantuml-service/compare/v1.4.28...v1.4.29) (2026-05-25)
+
+
+### Miscellaneous
+
+* **deps:** bump gradle-wrapper from 9.5.0 to 9.5.1 ([14acbe7](https://github.com/bitjourney/plantuml-service/commit/14acbe72636d8974a3e4e957a1f8e3f74eee2f08))
+* **deps:** bump gradle-wrapper from 9.5.0 to 9.5.1 ([4a8ea1c](https://github.com/bitjourney/plantuml-service/commit/4a8ea1c978ff765608dbfd28095cc390c04cacd7))
+* **deps:** bump org.slf4j:slf4j-simple from 2.0.17 to 2.0.18 ([4b3eafb](https://github.com/bitjourney/plantuml-service/commit/4b3eafb94c2e79c947b6dfb839b97893924bde21))
+* **deps:** bump org.slf4j:slf4j-simple from 2.0.17 to 2.0.18 ([740ab13](https://github.com/bitjourney/plantuml-service/commit/740ab13fda42df6162df748810c74898e3b6ba73))
+
 ## [1.4.28](https://github.com/bitjourney/plantuml-service/compare/v1.4.27...v1.4.28) (2026-05-11)
 
 
