@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.30](https://github.com/bitjourney/plantuml-service/compare/v1.4.29...v1.4.30) (2026-06-08)
+
+
+### Miscellaneous
+
+* **deps:** bump kotlin_version from 2.3.21 to 2.4.0 ([184a718](https://github.com/bitjourney/plantuml-service/commit/184a7188be07a48992cb2df3fe51f9637141b370))
+* **deps:** bump kotlin_version from 2.3.21 to 2.4.0 ([896b081](https://github.com/bitjourney/plantuml-service/commit/896b081f8e72301bf8858e631adcd59ec7382559))
+* **deps:** bump net.sourceforge.plantuml:plantuml ([3524656](https://github.com/bitjourney/plantuml-service/commit/3524656fdeed1ea233baada6e4abe3e49010302b))
+* **deps:** bump net.sourceforge.plantuml:plantuml from 1.2026.2 to 1.2026.5 ([c81bea2](https://github.com/bitjourney/plantuml-service/commit/c81bea24c18d6b1d0cac35f843a219910afb08ce))
+
 ## [1.4.29](https://github.com/bitjourney/plantuml-service/compare/v1.4.28...v1.4.29) (2026-05-25)
 
 
