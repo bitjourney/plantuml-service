@@ -64,6 +64,12 @@ jar {
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
 }
 
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 task stage(type: Copy, dependsOn: jar) {
     from file("build/libs/${ArchiveName}")
     into file("bin/")

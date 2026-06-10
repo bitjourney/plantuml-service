@@ -21,7 +21,7 @@ class MainTest {
             @enduml
         """
 
-        val result = main.render(DataSource(source, main.option)).toString(Charsets.UTF_8)
+        val result = main.render(DataSource(source, main.fileFormat)).toString(Charsets.UTF_8)
 
         assertThat(result).contains("Alice")
         assertThat(result).contains("Bob")
@@ -48,7 +48,7 @@ class MainTest {
             @enduml
         """
 
-        val result = main.render(DataSource(source, main.option)).toString(Charsets.UTF_8)
+        val result = main.render(DataSource(source, main.fileFormat)).toString(Charsets.UTF_8)
 
         assertThat(result).doesNotContain("Syntax error")
     }
@@ -69,7 +69,7 @@ class MainTest {
             @enduml
         """
 
-        val result = main.render(DataSource(source, main.option)).toString(Charsets.UTF_8)
+        val result = main.render(DataSource(source, main.fileFormat)).toString(Charsets.UTF_8)
         assertThat(result).doesNotContain("Syntax error")
     }
 
@@ -84,7 +84,7 @@ class MainTest {
             @enduml
         """
 
-        val result = main.render(DataSource(source, main.option)).toString(Charsets.UTF_8)
+        val result = main.render(DataSource(source, main.fileFormat)).toString(Charsets.UTF_8)
 
         assertThat(result).doesNotContain("Syntax error")
     }
