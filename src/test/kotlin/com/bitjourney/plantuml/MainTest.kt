@@ -1,12 +1,44 @@
 package com.bitjourney.plantuml
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.ByteArrayOutputStream
+import java.io.OutputStream
+import java.io.PrintStream
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 class MainTest {
+
+    private val originalErr: PrintStream = System.err
+    private val errCapture = ByteArrayOutputStream()
+
+    @Before
+    fun captureStderr() {
+        val tee = object : OutputStream() {
+            override fun write(b: Int) {
+                originalErr.write(b)
+                errCapture.write(b)
+            }
+
+            override fun write(b: ByteArray, off: Int, len: Int) {
+                originalErr.write(b, off, len)
+                errCapture.write(b, off, len)
+            }
+        }
+        System.setErr(PrintStream(tee, true, Charsets.UTF_8))
+    }
+
+    @After
+    fun verifyStderr() {
+        System.setErr(originalErr)
+        val stderr = errCapture.toString(Charsets.UTF_8)
+        assertThat(stderr).doesNotContain("Exception")
+        assertThat(stderr).doesNotContain("Error")
+    }
 
     @Test
     fun renderSequenceDiagram() {
