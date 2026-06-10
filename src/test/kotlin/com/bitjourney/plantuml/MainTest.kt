@@ -54,6 +54,27 @@ class MainTest {
     }
 
     @Test
+    fun renderAWSIcon() {
+        val main = Main()
+
+        val source = """
+            @startuml
+            !define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v23.0/dist
+            !include AWSPuml/AWSCommon.puml
+            !include AWSPuml/Compute/Lambda.puml
+            !include AWSPuml/Storage/SimpleStorageService.puml
+            Lambda(fn, "Function", "function")
+            SimpleStorageService(s3, "S3", "storage")
+            fn --> s3
+            @enduml
+        """
+
+        val result = main.render(DataSource(source, main.option)).toString(Charsets.UTF_8)
+        assertThat(result).doesNotContain("Syntax error")
+    }
+
+
+    @Test
     fun renderVersion() {
         val main = Main()
 
