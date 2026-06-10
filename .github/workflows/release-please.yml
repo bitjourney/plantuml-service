@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Trigger Release workflow
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.tag_name }}
         run: gh workflow run release.yml --ref master
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
