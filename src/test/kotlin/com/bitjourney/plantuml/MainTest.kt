@@ -70,6 +70,7 @@ class MainTest {
         """
 
         val result = main.render(DataSource(source, main.fileFormat)).toString(Charsets.UTF_8)
+        println("renderAWSIcon result:\n$result")
         assertThat(result).doesNotContain("Syntax error")
     }
 
