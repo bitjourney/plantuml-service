@@ -1,7 +1,9 @@
 name: Release
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 permissions:
   contents: write
@@ -13,8 +15,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-      with:
-        ref: master
+
+    - name: Resolve release version
+      id: get_version
+      run: |
+        VERSION="${GITHUB_REF_NAME#v}"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Release version: $VERSION"
+
+    - name: Verify Docker image tag does not already exist
+      run: |
+        IMAGE="ghcr.io/bitjourney/plantuml-service:${{ steps.get_version.outputs.version }}"
+        if docker manifest inspect "$IMAGE" > /dev/null 2>&1; then
+          echo "::error::Image $IMAGE already exists in ghcr.io. Aborting to prevent overwrite."
+          exit 1
+        fi
 
     - name: Set up Java
       uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4
@@ -26,7 +41,7 @@ jobs:
       run: docker build -f DockerfileForBuild -t plantuml-service-builder .
 
     - name: Run build
-      run: docker run --rm -v $(pwd):/app -e GRADLE_USER_HOME=/app/.gradle plantuml-service-builder ./gradlew stage
+      run: docker run --rm -v $(pwd):/app -e GRADLE_USER_HOME=/app/.gradle -e RELEASE_VERSION=${{ steps.get_version.outputs.version }} plantuml-service-builder ./gradlew stage
 
     - name: Check build artifacts
       run: |
@@ -36,19 +51,20 @@ jobs:
         fi
         echo "Build successful: JAR file created"
 
-    - name: Get version from build.gradle
-      id: get_version
-      run: |
-        VERSION=$(grep "^version " build.gradle | cut -d "'" -f 2)
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        echo "Release version: $VERSION"
-
     - name: Upload JAR to GitHub Release
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        VERSION=$(grep "^version " build.gradle | cut -d "'" -f 2)
-        gh release upload "v${VERSION}" ./bin/plantuml-service.jar --clobber
+        if gh release view "${GITHUB_REF_NAME}" > /dev/null 2>&1; then
+          echo "Release ${GITHUB_REF_NAME} already exists, uploading JAR"
+          gh release upload "${GITHUB_REF_NAME}" ./bin/plantuml-service.jar --clobber
+        else
+          echo "Release ${GITHUB_REF_NAME} does not exist, creating with auto-generated notes"
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes \
+            ./bin/plantuml-service.jar
+        fi
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3

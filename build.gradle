@@ -1,5 +1,5 @@
 group 'com.bitjourney.plantuml'
-version '1.4.30' // x-release-please-version
+version System.getenv('RELEASE_VERSION') ?: '0.0.0-SNAPSHOT'
 
 final MainClassName = "${group}.Main"
 
