@@ -51,14 +51,20 @@ jobs:
         fi
         echo "Build successful: JAR file created"
 
-    - name: Create GitHub Release
+    - name: Upload JAR to GitHub Release
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh release create "${GITHUB_REF_NAME}" \
-          --title "${GITHUB_REF_NAME}" \
-          --generate-notes \
-          ./bin/plantuml-service.jar
+        if gh release view "${GITHUB_REF_NAME}" > /dev/null 2>&1; then
+          echo "Release ${GITHUB_REF_NAME} already exists, uploading JAR"
+          gh release upload "${GITHUB_REF_NAME}" ./bin/plantuml-service.jar --clobber
+        else
+          echo "Release ${GITHUB_REF_NAME} does not exist, creating with auto-generated notes"
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes \
+            ./bin/plantuml-service.jar
+        fi
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
