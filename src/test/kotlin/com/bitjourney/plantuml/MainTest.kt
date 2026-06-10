@@ -100,4 +100,25 @@ class MainTest {
 
         assertThat(result).doesNotContain("Syntax error")
     }
+
+    @Test
+    fun renderAWSIcon() {
+        val main = Main()
+
+        val source = """
+            @startuml
+            !define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v23.0/dist
+            !include AWSPuml/AWSCommon.puml
+            !include AWSPuml/Compute/Lambda.puml
+            !include AWSPuml/Storage/SimpleStorageService.puml
+            Lambda(fn, "Function", "function")
+            SimpleStorageService(s3, "S3", "storage")
+            fn --> s3
+            @enduml
+        """
+
+        val result = main.render(DataSource(source, main.fileFormat)).toString(Charsets.UTF_8)
+        assertThat(result).contains("Function")
+        assertThat(result).contains("S3")
+    }
 }
