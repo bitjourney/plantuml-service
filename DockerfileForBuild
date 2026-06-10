@@ -9,7 +9,7 @@ FROM eclipse-temurin:17.0.15_6-jdk-jammy
 
 RUN apt-get update -qq \
     && apt-get upgrade -y \
-    && apt-get install -y curl unzip \
+    && apt-get install -y curl unzip graphviz \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
