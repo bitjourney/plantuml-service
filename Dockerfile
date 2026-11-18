@@ -23,4 +23,5 @@ RUN useradd --create-home app \
 USER app
 
 ENTRYPOINT ["/opt/java/openjdk/bin/java"]
-CMD ["-jar", "/home/app/plantuml-service/bin/plantuml-service.jar"]
+# CVE-2026-114938 (Java4Shell) mitigation until a patched eclipse-temurin:17 image is available
+CMD ["-XX:-UseBASE64Intrinsics", "-jar", "/home/app/plantuml-service/bin/plantuml-service.jar"]
