@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/eclipse-temurin?tab=description&page=2&name=17
-FROM eclipse-temurin:17.0.15_6-jdk-jammy
+FROM eclipse-temurin:17.0.21.1_2-jdk-jammy
 
 ARG PLANTUML_SERVICE_VERSION
 ARG PLANTUML_SERVICE_JAR_URL="https://github.com/bitjourney/plantuml-service/releases/download/v${PLANTUML_SERVICE_VERSION}/plantuml-service.jar"
@@ -23,5 +23,4 @@ RUN useradd --create-home app \
 USER app
 
 ENTRYPOINT ["/opt/java/openjdk/bin/java"]
-# CVE-2026-114938 (Java4Shell) mitigation until a patched eclipse-temurin:17 image is available
-CMD ["-XX:-UseBASE64Intrinsics", "-jar", "/home/app/plantuml-service/bin/plantuml-service.jar"]
+CMD ["-jar", "/home/app/plantuml-service/bin/plantuml-service.jar"]
