@@ -4,7 +4,7 @@
 # docker build -f DockerfileForRelease -t plantuml-service-releaser .
 # docker run --rm -e GITHUB_TOKEN=$GITHUB_TOKEN -v $(pwd):/app plantuml-service-releaser
 
-FROM eclipse-temurin:17.0.15_6-jdk-jammy
+FROM eclipse-temurin:17.0.21.1_2-jdk-jammy
 
 # Install required tools
 RUN apt-get update -qq \
