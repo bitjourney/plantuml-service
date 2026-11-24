@@ -81,7 +81,10 @@ jobs:
       with:
         context: .
         push: true
-        platforms: linux/amd64, linux/arm64
+        # linux/arm64 temporarily dropped: eclipse-temurin:17.0.21.1_2-jdk-jammy
+        # has no arm64 build yet (https://github.com/adoptium/adoptium-support/issues/1576).
+        # Restore once Eclipse Temurin publishes the arm64 image for this tag.
+        platforms: linux/amd64
         tags: ghcr.io/bitjourney/plantuml-service:${{ steps.get_version.outputs.version }}
         build-args: |
           PLANTUML_SERVICE_VERSION=${{ steps.get_version.outputs.version }}
